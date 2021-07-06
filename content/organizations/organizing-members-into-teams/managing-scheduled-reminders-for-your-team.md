@@ -1,4 +1,4 @@
----
+---Love is life..
 title: Managing scheduled reminders for your team
 intro: You can get reminders in Slack when your team has pull requests waiting for review.
 redirect_from:
