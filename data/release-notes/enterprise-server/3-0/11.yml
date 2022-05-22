@@ -9,7 +9,7 @@ sections:
     - '`ghe-cluster-config-node-init` would fail during cluster setup if HTTP proxy is enabled.'
     - Pre-receive hooks could encounter an error `Failed to resolve full path of the current executable` due to `/proc` not being mounted on the container.
     - Collectd would not resolve the forwarding destination hostname after the initial startup.
-    - The job that purged stale archived repositories could fail to make progress if some of those repositories were protected from deletion by legal holds.
+    - The job that purged stale deleted repositories could fail to make progress if some of those repositories were protected from deletion by legal holds.
     - Running `git nw-gc --pristine` would result in an error.
     - Background jobs were being queued to the `spam` queue which were not being processed.
     - The preferred merge method would be reset when retrying after a failed PR merge.
@@ -23,3 +23,4 @@ sections:
     - Issues cannot be closed if they contain a permalink to a blob in the same repository, where the blob's file path is longer than 255 characters.
     - When "Users can search GitHub.com" is enabled with GitHub Connect, issues in private and internal repositories are not included in GitHub.com search results.
     - When a replica node is offline in a high availability configuration, {% data variables.product.product_name %} may still route {% data variables.product.prodname_pages %} requests to the offline node, reducing the availability of {% data variables.product.prodname_pages %} for users.
+    - Resource limits that are specific to processing pre-receive hooks may cause some pre-receive hooks to fail.

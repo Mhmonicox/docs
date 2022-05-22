@@ -1,12 +1,12 @@
 import { jest } from '@jest/globals'
 import revalidator from 'revalidator'
-import allVersions from '../../lib/all-versions.js'
+import { allVersions } from '../../lib/all-versions.js'
 import { latest } from '../../lib/enterprise-server-releases.js'
 import schema from '../helpers/schemas/versions-schema.js'
 import { getJSON } from '../helpers/supertest.js'
 import nonEnterpriseDefaultVersion from '../../lib/non-enterprise-default-version.js'
 
-jest.useFakeTimers()
+jest.useFakeTimers('legacy')
 
 describe('versions module', () => {
   test('is an object with versions as keys', () => {
