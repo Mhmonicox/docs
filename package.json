@@ -58,7 +58,7 @@
     "mdast-util-to-string": "^3.1.0",
     "morgan": "^1.10.0",
     "msgpack5rpc": "^1.1.0",
-    "next": "^11.1.3",
+    "next": "^12.0.9",
     "overload-protection": "^1.2.3",
     "parse5": "^6.0.1",
     "port-used": "^2.0.8",
