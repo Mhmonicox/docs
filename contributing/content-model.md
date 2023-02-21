@@ -19,17 +19,46 @@ Consistency helps people form mental models of the documentation and understand 
 
 Docs are organized into multiple levels of hierarchy on our site:
 
-Top-level doc set
-- Categories
-  - Map topics
-    - Articles 
+- Top-level doc set
+  - Categories
+    - Map topics
+      - Articles
+
+### Homepage content
+
+The GitHub Docs homepage, [docs.github.com](https://docs.github.com/), highlights the most important topics that people want to find. We limit the number of doc sets on the homepage so that people can find information and the homepage does not become overcrowded and difficult to search.
+
+The homepage includes all top-level doc sets and some categories. Content on the homepage is organized around GitHub concepts and practices. For example, the "CI/CD and DevOps" group includes top-level doc sets for GitHub Actions, GitHub Packages, and GitHub Pages.
+
+#### Adding a doc set to the homepage
+
+The goal of the homepage is to help people find information about the GitHub feature or product that they want to learn about. Every item on the homepage dilutes the discoverability of every other item, so we limit the number of doc sets included on the homepage.
+
+If a new top-level doc set is created, it is added to the homepage. 
+
+If a category serves as the starting point for using a GitHub product or feature, it can be added to the homepage.
+
+For example, under the "Security" grouping on the homepage, in addition to the "[Code security](https://docs.github.com/en/code-security)" top-level doc set, the "[Supply chain security](https://docs.github.com/en/code-security/supply-chain-security)," "[Security advisories](https://docs.github.com/en/code-security/security-advisories)," "[Dependabot](https://docs.github.com/en/code-security/dependabot)," "[Code scanning](https://docs.github.com/en/code-security/code-scanning)," and "[Secret scanning](https://docs.github.com/en/code-security/secret-scanning)" categories are included because each of those categories are the entry point to GitHub products and features. "[Security overview](https://docs.github.com/en/code-security/security-overview)" is not included on the homepage because it provides additional information for using code security products and is not an introduction to a product or feature.
+
+### Top-level doc set
+
+Top-level doc sets are organized around a GitHub product, feature, or core workflow. All top-level doc sets appear on the Docs homepage. You should only create a top-level doc set when there is a large amount of content to be contained in the new doc set, multiple categories that are broken down into map topics, and the topic applies across products, features, or account types. If the content could fit in any existing top-level doc set, it probably belongs in that existing doc set.
+- Top-level doc sets are of roughly equal importance to one another (each is centered on a GitHub product or major feature)
+- Most top-level doc sets have a landing page layout, unless there is a significant exception. For example, the "[Site policy](https://docs.github.com/en/site-policy)" doc set does not have guides or procedural articles like other doc sets, so it does not use a landing page layout.
+
+#### Titles for top-level doc sets
+- Feature or product based.
+- Describes what part of GitHub someone is using.
+- Examples
+  - [Organizations](https://docs.github.com/en/organizations)
+  - [GitHub Issues](https://docs.github.com/en/issues)
 
 ### Category
 
-Categories are usually organized around a feature or a discrete set of tasks within a top-level doc set, aligning with product themes. A category's subject isn't so broad that its contents are hard to manage or the category grows too large to use.
+Categories are usually organized around a feature or a discrete set of tasks within a top-level doc set, aligning with product themes. A category's subject isn't so broad that its contents are hard to manage or the category grows too large to use. Some categories appear on the Docs homepage.
 - Categories often start small and grow with the product.
 - Large categories may contain map topics to subdivide content around more specific user journeys or tasks.
-- Use long procedural articles to group related chunks of content and keep articles within the category streamlined. 
+- Use long procedural articles to group related chunks of content and keep articles within the category streamlined.
 - When categories have more than ten articles, consider breaking the content into map topics or additional categories, unless there's a reason to keep all of the content together.
 
 #### Titles for categories
@@ -56,8 +85,8 @@ Map topics contain at least three articles. When map topics have more than eight
 - General or high-level enough to scale with future additions to the product
 - Map topic titles must be 63 characters or shorter and have a [`shortTitle`](https://github.com/github/docs/tree/main/content#shorttitle) less than 30 characters
 - Examples
-  - [Securing your account with two-factor authentication](https://docs.github.com/en/github/authenticating-to-github/securing-your-account-with-two-factor-authentication-2fa)
-  - [Setting policies for organizations in your enterprise account](https://docs.github.com/en/github/setting-up-and-managing-your-enterprise/setting-policies-for-organizations-in-your-enterprise-account)
+  - [Understanding your software supply chain](https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain)
+  - [Managing users in your enterprise](https://docs.github.com/en/enterprise-cloud@latest/admin/user-management/managing-users-in-your-enterprise)
 
 #### Intros for map topics
 All map topics have intros. Keep the intros one sentence long, and general or high-level enough to scale with future product changes without having to remember to update the intro. If you add or remove articles in a map topic, check its intro for needed updates.
@@ -80,15 +109,23 @@ We organize content predictably within categories, map topics, and articles, fro
 
 ### Titles
 
-Titles are challenging! Use these general guidelines to help create clear, helpful, descriptive titles, and see below for specific guidelines for each content type.
+Titles fully describe what a page is about, and what a user will know by reading it. 
+
+Titles are challenging! Use these general guidelines to help create clear, helpful, and descriptive titles. See below for specific guidelines for each content type.
 
 #### Titles for all content types
-- Titles are clear, descriptive, and specific, but not wordy
+- Titles clearly describe what a page is about. They are descriptive and specific.
   - Use: Browsing actions in the workflow editor
+  - Use: Example of configuring a codespace
   - Avoid: Using the workflow editor sidebar
+  - Avoid: Example
+  - Titles have hard limits for length to keep them easy to understand (and easier to render on the site): 
+     - Category titles: 67 characters and [`shortTitle`](https://github.com/github/docs/tree/main/content#shorttitle) < 27 characters
+     - Map topic titles: 63 characters and [`shortTitle`](https://github.com/github/docs/tree/main/content#shorttitle) < 30 characters
+     - Article titles: 80 characters, 60 if possible, and [`shortTitle`](https://github.com/github/docs/tree/main/content#shorttitle) < 31 characters, ideally 20-25 characters
 - Titles are consistent across a content type
   - See specific guidelines for each content type
-  - Titles aren’t overly repetitive––vary the verbs used for procedure or map topic titles when possible
+  - Titles aren’t repetitive––vary the verbs used for procedure or map topic titles when possible
 - Titles are general enough to scale with product changes, reflect all of the content within the article, or include content on multiple products
   - Use: "GitHub's billing plans"
   - Avoid: "Billing plans for user and organization accounts"
@@ -102,10 +139,6 @@ Titles are challenging! Use these general guidelines to help create clear, helpf
 - Think about how the title will appear in search results for multiple products
   - What specific words do we need to include in the title or intro so that folks don’t mistake it for content about a different product?
 - Think about how the title will look in production
-- Titles have hard limits for length to keep them easy to understand (and easier to render on the site): 
-  - Category titles: 67 characters and [`shortTitle`](https://github.com/github/docs/tree/main/content#shorttitle) < 27 characters
-  - Map topic titles: 63 characters and [`shortTitle`](https://github.com/github/docs/tree/main/content#shorttitle) < 30 characters
-  - Article titles: 80 characters, 60 if possible, and [`shortTitle`](https://github.com/github/docs/tree/main/content#shorttitle) < 31 characters, ideally 20-25 characters
 
 ### Topics
 
@@ -300,7 +333,7 @@ Contents of quickstarts:
   - In an ideal world, the guidance provided in a quick start will always work. If it exists, link out to any relevant troubleshooting content rather than including it in the document.
 - Next steps
   - Provide a quick recap of what has been accomplished in the quick start as a means of transitioning to next steps.
-  - Include 2-3 actionable next steps that the user take after completing the quickstart. Always link to conceptual content on the feature or product. You can also link off to other related information on docs.github.com or in GitHub Learning Labs.
+  - Include 2-3 actionable next steps that the user take after completing the quickstart. Always link to conceptual content on the feature or product. You can also link off to other related information on docs.github.com or in GitHub Skills.
 
 #### Title guidelines for quickstarts
 - When the guide helps someone get started with a new tool, preface the title with "Quickstart", e.g. "Quickstart for GitHub Actions" or "Quickstart: Procedural title"
@@ -343,7 +376,7 @@ Contents of tutorials:
   - Include 2-3 actionable next steps that the user take after completing the tutorial. Link off to other related information like:
     - Projects on GitHub that illustrate the introduced concepts
     - Relevant information on docs.github.com
-    - Relevant GitHub Learning Labs
+    - Relevant GitHub Skills
     - Relevant published talks, blog posts, or Community Forum series posts by Hubbers
 
 #### Title guidelines for tutorials
@@ -374,13 +407,14 @@ Within an article, there is a standard order of content sections. Every article 
 2. Product callout (conditional)
 3. Intro
 4. Permissions statement (conditional)
-5. Table of contents
-6. Conceptual content
-7. Referential content
-8. Prerequisites
-9. Procedural content
-10. Troubleshooting
-11. Further reading (conditional)
+5. Tool switcher (conditional)
+6. Table of contents
+7. Conceptual content
+8. Referential content
+9. Prerequisites
+10. Procedural content
+11. Troubleshooting
+12. Further reading (conditional)
 
 Here's what some of these elements look like rendered in an article.
 
@@ -440,6 +474,10 @@ Occasionally, it's relevant to mention required permissions in conceptual conten
 #### Examples of permissions statements
 - Article with separate permissions statements for each procedure: [Upgrading your GitHub subscription](https://docs.github.com/en/github/setting-up-and-managing-billing-and-payments-on-github/upgrading-your-github-subscription)
 - Article with single permissions statement for multiple procedures: [Enforcing repository management policies in your enterprise account](https://docs.github.com/en/github/setting-up-and-managing-your-enterprise/enforcing-repository-management-policies-in-your-enterprise-account)
+
+### Tool switcher
+
+Some articles have content that varies depending on what tool someone uses to complete a task, such as the GitHub CLI or GitHub Desktop. For most content, the same conceptual or procedural information will be accurate for multiple tools. However, if the only way to make information clear and accurate is by distinguishing content by tool, use the tool switcher. Do not use the tool switcher just to show examples in different languages. Only use the tool switcher if the tasks or concepts change based on what tool someone uses. For more information on using the tool switcher, see the [tool switcher content model](./tool-switcher.md).
 
 ### Table of contents
 Tables of contents are automatically generated. For more information see "[Autogenerated mini-TOCs](https://github.com/github/docs/tree/main/content#autogenerated-mini-tocs)."

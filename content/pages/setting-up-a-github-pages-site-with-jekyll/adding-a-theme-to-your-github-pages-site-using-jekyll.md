@@ -6,6 +6,7 @@ redirect_from:
   - /articles/adding-a-jekyll-theme-to-your-github-pages-site
   - /articles/adding-a-theme-to-your-github-pages-site-using-jekyll
   - /github/working-with-github-pages/adding-a-theme-to-your-github-pages-site-using-jekyll
+  - /pages/getting-started-with-github-pages/adding-a-theme-to-your-github-pages-site-with-the-theme-chooser
 product: '{% data reusables.gated-features.pages %}'
 versions:
   fpt: '*'
@@ -72,4 +73,4 @@ People with write permissions for a repository can add a theme to a {% data vari
 
 ## Further reading
 
-- "[Creating new files](/articles/creating-new-files)"
+- "[AUTOTITLE](/repositories/working-with-files/managing-files/creating-new-files)"

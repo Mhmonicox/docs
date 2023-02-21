@@ -23,7 +23,7 @@ We recommend inviting another {% data variables.product.company_short %} user to
 
 Successors cannot log into your account.
 
-An appointed successor can manage your public repositories after presenting a death certificate then waiting for 7 days or presenting an obituary then waiting for 21 days. For more information, see "[{% data variables.product.company_short %} Deceased User Policy](/free-pro-team@latest/github/site-policy/github-deceased-user-policy)."
+An appointed successor can manage your public repositories after presenting a death certificate then waiting for 7 days or presenting an obituary then waiting for 21 days. For more information, see "[AUTOTITLE](/free-pro-team@latest/site-policy/other-site-policies/github-deceased-user-policy)."
 
 To request access to manage repositories as a successor, contact [GitHub Support](https://support.github.com/contact?tags=docs-accounts).
 
@@ -36,5 +36,5 @@ The person you invite to be your successor must have a {% data variables.product
    ![Successor invitation search field](/assets/images/help/settings/settings-invite-successor-search-field.png)
 4. Click **Add successor**.
 {% data reusables.user-settings.sudo-mode-popup %}
-5. The user you've invited will be listed as "Pending" until they agree to become your successor.
+6. The user you've invited will be listed as "Pending" until they agree to become your successor.
    ![Pending successor invitation](/assets/images/help/settings/settings-pending-successor.png)

@@ -66,13 +66,13 @@ For example, to syntax highlight Ruby code:
 
 We use [Linguist](https://github.com/github/linguist) to perform language detection and to select [third-party grammars](https://github.com/github/linguist/blob/master/vendor/README.md) for syntax highlighting. You can find out which keywords are valid in [the languages YAML file](https://github.com/github/linguist/blob/master/lib/linguist/languages.yml).
 
-{% if mermaid %}
+{% ifversion mermaid %}
 ## Creating diagrams
 
-You can also use code blocks to create diagrams in Markdown. GitHub supports Mermaid, geoJSON, topoJSON, and ASCII STL syntax. For more information, see "[Creating diagrams](/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams)."
+You can also use code blocks to create diagrams in Markdown. GitHub supports Mermaid, GeoJSON, TopoJSON, and ASCII STL syntax. For more information, see "[AUTOTITLE](/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams)."
 
 {% endif %}
 ## Further reading
 
 - [{% data variables.product.prodname_dotcom %} Flavored Markdown Spec](https://github.github.com/gfm/)
-- "[Basic writing and formatting syntax](/articles/basic-writing-and-formatting-syntax)"
+- "[AUTOTITLE](/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)"

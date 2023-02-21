@@ -1,5 +1,6 @@
 ---
 title: Publishing Docker images
+shortTitle: Publish Docker images
 intro: 'You can publish Docker images to a registry, such as Docker Hub or {% data variables.product.prodname_registry %}, as part of your continuous integration (CI) workflow.'
 redirect_from:
   - /actions/language-and-framework-guides/publishing-docker-images
@@ -31,18 +32,24 @@ This guide shows you how to create a workflow that performs a Docker build, and 
 
 ## Prerequisites
 
-We recommend that you have a basic understanding of workflow configuration options and how to create a workflow file. For more information, see "[Learn {% data variables.product.prodname_actions %}](/actions/learn-github-actions)."
+We recommend that you have a basic understanding of workflow configuration options and how to create a workflow file. For more information, see "[AUTOTITLE](/actions/learn-github-actions)."
 
 You might also find it helpful to have a basic understanding of the following:
 
-- "[Encrypted secrets](/actions/reference/encrypted-secrets)"
-- "[Authentication in a workflow](/actions/reference/authentication-in-a-workflow)"{% ifversion fpt or ghec %}
-- "[Working with the {% data variables.product.prodname_container_registry %}](/packages/working-with-a-github-packages-registry/working-with-the-container-registry)"{% else %}
-- "[Working with the Docker registry](/packages/working-with-a-github-packages-registry/working-with-the-docker-registry)"{% endif %}
+- "[AUTOTITLE](/actions/security-guides/encrypted-secrets)"
+- "[AUTOTITLE](/actions/security-guides/automatic-token-authentication)"{% ifversion fpt or ghec %}
+- "[AUTOTITLE](/packages/working-with-a-github-packages-registry/working-with-the-container-registry)"{% else %}
+- "[AUTOTITLE](/packages/working-with-a-github-packages-registry/working-with-the-docker-registry)"{% endif %}
 
 ## About image configuration
 
 This guide assumes that you have a complete definition for a Docker image stored in a {% data variables.product.prodname_dotcom %} repository. For example, your repository must contain a _Dockerfile_, and any other files needed to perform a Docker build to create an image.
+
+{% ifversion fpt or ghec or ghes > 3.4 %}
+
+{% data reusables.package_registry.about-annotation-keys %} For more information, see "[AUTOTITLE](/packages/working-with-a-github-packages-registry/working-with-the-container-registry#labelling-container-images)."
+
+{% endif %}
 
 In this guide, we will use the Docker `build-push-action` action to build the Docker image and push it to one or more Docker registries. For more information, see [`build-push-action`](https://github.com/marketplace/actions/build-and-push-docker-images).
 
@@ -57,7 +64,7 @@ In the example workflow below, we use the Docker `login-action` and `build-push-
 To push to Docker Hub, you will need to have a Docker Hub account, and have a Docker Hub repository created. For more information, see "[Pushing a Docker container image to Docker Hub](https://docs.docker.com/docker-hub/repos/#pushing-a-docker-container-image-to-docker-hub)" in the Docker documentation.
 
 The `login-action` options required for Docker Hub are:
-* `username` and `password`: This is your Docker Hub username and password. We recommend storing your Docker Hub username and password as secrets so they aren't exposed in your workflow file. For more information, see "[Creating and using encrypted secrets](/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets)."
+* `username` and `password`: This is your Docker Hub username and password. We recommend storing your Docker Hub username and password as secrets so they aren't exposed in your workflow file. For more information, see "[AUTOTITLE](/actions/security-guides/encrypted-secrets)."
 
 The `metadata-action` option required for Docker Hub is:
 * `images`: The namespace and name for the Docker image you are building/pushing to Docker Hub.
@@ -68,6 +75,8 @@ The `build-push-action` options required for Docker Hub are:
 
 ```yaml{:copy}
 {% data reusables.actions.actions-not-certified-by-github-comment %}
+
+{% data reusables.actions.actions-use-sha-pinning-comment %}
 
 name: Publish Docker image
 
@@ -118,8 +127,8 @@ In the example workflow below, we use the Docker `login-action`{% ifversion fpt 
 
 The `login-action` options required for {% data variables.product.prodname_registry %} are:
 * `registry`: Must be set to {% ifversion fpt or ghec %}`ghcr.io`{% elsif ghes > 3.4 %}`{% data reusables.package_registry.container-registry-hostname %}`{% else %}`docker.pkg.github.com`{% endif %}.
-* `username`: You can use the {% raw %}`${{ github.actor }}`{% endraw %} context to automatically use the username of the user that triggered the workflow run. For more information, see "[Contexts](/actions/learn-github-actions/contexts#github-context)."
-* `password`: You can use the automatically-generated `GITHUB_TOKEN` secret for the password. For more information, see "[Authenticating with the GITHUB_TOKEN](/actions/automating-your-workflow-with-github-actions/authenticating-with-the-github_token)."
+* `username`: You can use the {% raw %}`${{ github.actor }}`{% endraw %} context to automatically use the username of the user that triggered the workflow run. For more information, see "[AUTOTITLE](/actions/learn-github-actions/contexts#github-context)."
+* `password`: You can use the automatically-generated `GITHUB_TOKEN` secret for the password. For more information, see "[AUTOTITLE](/actions/security-guides/automatic-token-authentication)."
 
 {% ifversion fpt or ghec %}
 The `metadata-action` option required for {% data variables.product.prodname_registry %} is:
@@ -142,8 +151,11 @@ The `build-push-action` options required for {% data variables.product.prodname_
 The above workflow is triggered by a push to the "release" branch. It checks out the GitHub repository, and uses the `login-action` to log in to the {% data variables.product.prodname_container_registry %}. It then extracts labels and tags for the Docker image. Finally, it uses the `build-push-action` action to build the image and publish it on the {% data variables.product.prodname_container_registry %}.
 
 {% else %}
+
 ```yaml{:copy}
 {% data reusables.actions.actions-not-certified-by-github-comment %}
+
+{% data reusables.actions.actions-use-sha-pinning-comment %}
 
 name: Publish Docker image
 
@@ -153,10 +165,10 @@ on:
 jobs:
   push_to_registry:
     name: Push Docker image to GitHub Packages
-    runs-on: ubuntu-latest{% ifversion fpt or ghes > 3.1 or ghae or ghec %}
+    runs-on: ubuntu-latest
     permissions:
       packages: write
-      contents: read{% endif %}
+      contents: read
     steps:
       - name: Check out the repo
         uses: {% data reusables.actions.action-checkout %}
@@ -194,6 +206,8 @@ The following example workflow uses the steps from the previous sections ("[Publ
 ```yaml{:copy}
 {% data reusables.actions.actions-not-certified-by-github-comment %}
 
+{% data reusables.actions.actions-use-sha-pinning-comment %}
+
 name: Publish Docker image
 
 on:
@@ -203,10 +217,10 @@ on:
 jobs:
   push_to_registries:
     name: Push Docker image to multiple registries
-    runs-on: {% ifversion ghes %}[self-hosted]{% else %}ubuntu-latest{% endif %}{% ifversion fpt or ghes > 3.1 or ghae or ghec %}
+    runs-on: {% ifversion ghes %}[self-hosted]{% else %}ubuntu-latest{% endif %}
     permissions:
       packages: write
-      contents: read{% endif %}
+      contents: read
     steps:
       - name: Check out the repo
         uses: {% data reusables.actions.action-checkout %}

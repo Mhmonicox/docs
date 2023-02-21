@@ -25,7 +25,7 @@ shortTitle: Explore dependencies
 
 ## Viewing the dependency graph
 
-The dependency graph shows the dependencies{% ifversion fpt or ghec %} and dependents{% endif %} of your repository. For information about the detection of dependencies and which ecosystems are supported, see "[About the dependency graph](/github/visualizing-repository-data-with-graphs/about-the-dependency-graph)."
+The dependency graph shows the dependencies{% ifversion fpt or ghec %} and dependents{% endif %} of your repository. For information about the detection of dependencies and which ecosystems are supported, see "[AUTOTITLE](/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph)."
 
 {% data reusables.repositories.navigate-to-repo %}
 {% data reusables.repositories.accessing-repository-graphs %}
@@ -34,13 +34,17 @@ The dependency graph shows the dependencies{% ifversion fpt or ghec %} and depen
 ![Dependents tab on the dependency graph page](/assets/images/help/graphs/dependency-graph-dependents-tab.png){% endif %}
 
 {% ifversion ghes %}
-Enterprise owners can configure the dependency graph at an enterprise level. For more information, see "[Enabling the dependency graph for your enterprise](/admin/code-security/managing-supply-chain-security-for-your-enterprise/enabling-the-dependency-graph-for-your-enterprise)."
+Enterprise owners can configure the dependency graph at an enterprise level. For more information, see "[AUTOTITLE](/admin/code-security/managing-supply-chain-security-for-your-enterprise/enabling-the-dependency-graph-for-your-enterprise)."
 {% endif %}
 
 ### Dependencies view
 
 {% ifversion fpt or ghec %}
 Dependencies are grouped by ecosystem. You can expand a dependency to view its dependencies.  Dependencies on private repositories, private packages, or unrecognized files are shown in plain text. If the package manager for the dependency is in a public repository, {% data variables.product.product_name %} will display a link to that repository.
+
+{% ifversion dependency-submission-api %}
+Dependencies submitted to a project using the Dependency submission API (beta), although also grouped by ecosystem, are shown separately from dependencies identified through manifest or lock files in the repository. These submitted dependencies appear in the dependency graph as "Snapshot dependencies" because they are submitted as a snapshot, or set, of dependencies. For more information on using the dependency submission API, see "[AUTOTITLE](/code-security/supply-chain-security/understanding-your-software-supply-chain/using-the-dependency-submission-api)."
+{% endif %}
 
 If vulnerabilities have been detected in the repository, these are shown at the top of the view for users with access to {% data variables.product.prodname_dependabot_alerts %}.
 
@@ -76,7 +80,7 @@ For public repositories, the dependents view shows how the repository is used by
 
 You may notice some repositories have a "Used by" section in the sidebar of the **Code** tab. Your repository will have a "Used by" section if:
   * The dependency graph is enabled for the repository (see the above section for more details).
-  * Your repository contains a package that is published on a [supported package ecosystem](/github/visualizing-repository-data-with-graphs/about-the-dependency-graph#supported-package-ecosystems).
+  * Your repository contains a package that is published on a [supported package ecosystem](/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#supported-package-ecosystems).
   * Within the ecosystem, your package has a link to a _public_ repository where the source is stored.
 
 The "Used by" section shows the number of public references to the package that were found, and displays the avatars of some of the owners of the dependent projects.
@@ -102,12 +106,12 @@ If your dependency graph is empty, there may be a problem with the file containi
 {% ifversion fpt or ghec %}
 If the file is correctly formatted, then check its size. The dependency graph ignores individual manifest and lock files that are over 1.5 Mb, unless you are a {% data variables.product.prodname_enterprise %} user. It processes up to 20 manifest or lock files per repository by default, so you can split dependencies into smaller files in subdirectories of the repository.{% endif %}
 
-If a manifest or lock file is not processed, its dependencies are omitted from the dependency graph and they can't be checked for vulnerable dependencies.
+If a manifest or lock file is not processed, its dependencies are omitted from the dependency graph and they can't be checked for insecure dependencies.
 
 ## Further reading
 
-- "[About the dependency graph](/github/visualizing-repository-data-with-graphs/about-the-dependency-graph)"
-- "[Viewing {% data variables.product.prodname_dependabot_alerts %} for vulnerable dependencies](/github/managing-security-vulnerabilities/viewing-and-updating-vulnerable-dependencies-in-your-repository)"{% ifversion ghec %}
-- "[Viewing insights for your organization](/organizations/collaborating-with-groups-in-organizations/viewing-insights-for-your-organization)"{% endif %}{% ifversion fpt or ghec %}
-- "[Understanding how {% data variables.product.prodname_dotcom %} uses and protects your data](/get-started/privacy-on-github)"
+- "[AUTOTITLE](/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph)"
+- "[AUTOTITLE](/code-security/dependabot/dependabot-alerts/viewing-and-updating-dependabot-alerts)"{% ifversion ghec %}
+- "[AUTOTITLE](/organizations/collaborating-with-groups-in-organizations/viewing-insights-for-your-organization)"{% endif %}{% ifversion fpt or ghec %}
+- "[AUTOTITLE](/get-started/privacy-on-github)"
 {% endif %}

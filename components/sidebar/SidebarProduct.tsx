@@ -1,19 +1,19 @@
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import cx from 'classnames'
 
-import { Link } from 'components/Link'
 import { useMainContext } from 'components/context/MainContext'
-import { AllProductsLink } from 'components/sidebar/AllProductsLink'
-import styles from './SidebarProduct.module.scss'
+import { useTranslation } from 'components/hooks/useTranslation'
+import { Link } from 'components/Link'
 import { RestCollapsibleSection } from './RestCollapsibleSection'
 import { ProductCollapsibleSection } from './ProductCollapsibleSection'
-import { useTranslation } from 'components/hooks/useTranslation'
 
 export const SidebarProduct = () => {
   const router = useRouter()
+  const sidebarRef = useRef<HTMLUListElement>(null)
   const { currentProduct, currentProductTree } = useMainContext()
   const { t } = useTranslation(['products'])
+  const isRestPage = currentProduct && currentProduct.id === 'rest'
 
   useEffect(() => {
     const activeArticle = document.querySelector('[data-is-current-page=true]')
@@ -36,16 +36,14 @@ export const SidebarProduct = () => {
     routePath.includes(href)
   )
 
-  const productTitle = currentProductTree.renderedShortTitle || currentProductTree.renderedFullTitle
-
   const productSection = () => (
-    <li className="my-3" data-testid="product-sidebar-items">
+    <li className="mt-2 mb-3" data-testid="product-sidebar-items">
       <ul className="list-style-none">
         {currentProductTree &&
           currentProductTree.childPages.map((childPage, i) => {
-            const isStandaloneCategory = childPage.page.documentType === 'article'
+            const isStandaloneCategory = childPage.documentType === 'article'
 
-            const childTitle = childPage.renderedShortTitle || childPage.renderedFullTitle
+            const childTitle = childPage.shortTitle || childPage.title
             const isActive =
               routePath.includes(childPage.href + '/') || routePath === childPage.href
             const defaultOpen = hasExactCategory ? isActive : false
@@ -80,21 +78,28 @@ export const SidebarProduct = () => {
 
   const restSection = () => {
     const conceptualPages = currentProductTree.childPages.filter(
-      (page) => page.href.includes('guides') || page.href.includes('overview')
+      (page) =>
+        page.href.includes('guides') ||
+        page.href.includes('overview') ||
+        page.href.includes('quickstart')
     )
     const restPages = currentProductTree.childPages.filter(
-      (page) => !page.href.includes('guides') && !page.href.includes('overview')
+      (page) =>
+        !page.href.includes('guides') &&
+        !page.href.includes('overview') &&
+        !page.href.includes('quickstart')
     )
     return (
       <>
-        <li className="my-3">
+        <li className="mt-2 mb-3">
           <ul className="list-style-none">
             {conceptualPages.map((childPage, i) => {
-              const isStandaloneCategory = childPage.page.documentType === 'article'
-              const childTitle = childPage.renderedShortTitle || childPage.renderedFullTitle
+              const isStandaloneCategory = childPage.documentType === 'article'
+              const childTitle = childPage.shortTitle || childPage.title
               const isActive =
                 routePath.includes(childPage.href + '/') || routePath === childPage.href
               const defaultOpen = hasExactCategory ? isActive : false
+
               return (
                 <li
                   key={childPage.href + i}
@@ -102,12 +107,23 @@ export const SidebarProduct = () => {
                   data-is-current-page={isActive && isStandaloneCategory}
                   className={cx('py-1', isActive && 'color-bg-inset')}
                 >
-                  <ProductCollapsibleSection
-                    defaultOpen={defaultOpen}
-                    routePath={routePath}
-                    title={childTitle}
-                    page={childPage}
-                  />
+                  {childPage.href.includes('quickstart') ? (
+                    <Link
+                      href={childPage.href}
+                      className={cx(
+                        'd-block pl-4 pr-5 py-1 color-fg-default text-bold no-underline width-full'
+                      )}
+                    >
+                      {childTitle}
+                    </Link>
+                  ) : (
+                    <ProductCollapsibleSection
+                      defaultOpen={defaultOpen}
+                      routePath={routePath}
+                      title={childTitle}
+                      page={childPage}
+                    />
+                  )}
                 </li>
               )
             })}
@@ -127,9 +143,8 @@ export const SidebarProduct = () => {
         <li className="my-3">
           <ul className="list-style-none">
             {restPages.map((childPage, i) => {
-              const isStandaloneCategory = childPage.page.documentType === 'article'
-
-              const childTitle = childPage.renderedShortTitle || childPage.renderedFullTitle
+              const isStandaloneCategory = childPage.documentType === 'article'
+              const childTitle = childPage.shortTitle || childPage.title
               const isActive =
                 routePath.includes(childPage.href + '/') || routePath === childPage.href
               const defaultOpen = hasExactCategory ? isActive : false
@@ -157,22 +172,8 @@ export const SidebarProduct = () => {
   }
 
   return (
-    <ul data-testid="sidebar" className={styles.container}>
-      <AllProductsLink />
-
-      {!currentProductTree.page.hidden && (
-        <>
-          <li data-testid="sidebar-product" title={productTitle} className="my-2">
-            <Link
-              href={currentProductTree.href}
-              className="pl-4 pr-5 pb-1 f4 color-fg-default no-underline"
-            >
-              {productTitle}
-            </Link>
-          </li>
-          {currentProduct && currentProduct.id === 'rest' ? restSection() : productSection()}
-        </>
-      )}
+    <ul data-testid="sidebar" ref={sidebarRef} style={{ overflowY: 'auto' }} className="pt-2">
+      {isRestPage ? restSection() : productSection()}
     </ul>
   )
 }

@@ -19,7 +19,7 @@ permissions: Team maintainers and organization owners can configure code review 
 
 ## About code review settings
 
-{% if only-notify-requested-members %}
+{% ifversion only-notify-requested-members %}
 To reduce noise for your team and clarify individual responsibility for pull request reviews, you can configure code review settings.
 
 - Team notifications
@@ -27,7 +27,7 @@ To reduce noise for your team and clarify individual responsibility for pull req
 
 ## About team notifications
 
-When you choose to only notify requested team members, you disable sending notifications to the entire team when the team is requested to review a pull request if a specific member of that team is also requested for review. This is especially useful when a repository is configured with teams as code owners, but contributors to the repository often know a specific individual that would be the correct reviewer for their pull request. For more information, see "[About code owners](/github/creating-cloning-and-archiving-repositories/about-code-owners)."
+When you choose to only notify requested team members, you disable sending notifications to the entire team when the team is requested to review a pull request if a specific member of that team is also requested for review. This is especially useful when a repository is configured with teams as code owners, but contributors to the repository often know a specific individual that would be the correct reviewer for their pull request. For more information, see "[AUTOTITLE](/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)."
 
 ## About auto assignment
 {% endif %}
@@ -44,16 +44,16 @@ The round robin algorithm chooses reviewers based on who's received the least re
 
 The load balance algorithm chooses reviewers based on each member's total number of recent review requests and considers the number of outstanding reviews for each member. The load balance algorithm tries to ensure that each team member reviews an equal number of pull requests in any 30 day period.
 
-Any team members that have set their status to "Busy" will not be selected for review. If all team members are busy, the pull request will remain assigned to the team itself. For more information about user statuses, see "[Setting a status](/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/personalizing-your-profile#setting-a-status)."
+Any team members that have set their status to "Busy" will not be selected for review. If all team members are busy, the pull request will remain assigned to the team itself. For more information about user statuses, see "[AUTOTITLE](/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/personalizing-your-profile#setting-a-status)."
 
-{% if only-notify-requested-members %}
+{% ifversion only-notify-requested-members %}
 ## Configuring team notifications
 
 {% data reusables.profile.access_org %}
 {% data reusables.user-settings.access_org %}
 {% data reusables.organizations.specific_team %}
 {% data reusables.organizations.team_settings %}
-{% ifversion fpt or ghec or ghes > 3.4 or ghae-issue-5658 %}
+{% ifversion fpt or ghec or ghes > 3.4 or ghae > 3.4 %}
 1. In the left sidebar, click **{% octicon "code-review" aria-label="The code-review icon" %} Code review**.
 {% else %}
 1. In the left sidebar, click **Code review**
@@ -69,7 +69,7 @@ Any team members that have set their status to "Busy" will not be selected for r
 {% data reusables.user-settings.access_org %}
 {% data reusables.organizations.specific_team %}
 {% data reusables.organizations.team_settings %}
-{% ifversion fpt or ghec or ghes > 3.4 or ghae-issue-5658 %}
+{% ifversion fpt or ghec or ghes > 3.4 or ghae > 3.4 %}
 1. In the left sidebar, click **{% octicon "code-review" aria-label="The code-review icon" %} Code review**.
 {% else %}
 1. In the left sidebar, click **Code review**
@@ -83,10 +83,8 @@ Any team members that have set their status to "Busy" will not be selected for r
 ![Routing algorithm dropdown](/assets/images/help/teams/review-assignment-algorithm.png)
 1. Optionally, to always skip certain members of the team, select **Never assign certain team members**. Then, select one or more team members you'd like to always skip.
 ![Never assign certain team members checkbox and dropdown](/assets/images/help/teams/review-assignment-skip-members.png)
-{% ifversion ghes < 3.4 %}
-1. Optionally, to only notify the team members chosen by code review assignment for each pull review request, under "Notifications" select **If assigning team members, don't notify the entire team.**
-{%- endif %}
-{% ifversion fpt or ghec or ghae-issue-5108 or ghes > 3.2 %}
+
+{% ifversion fpt or ghec or ghes or ghae > 3.3 %}
 1. Optionally, to include members of child teams as potential reviewers when assigning requests, select **Child team members**.
 1. Optionally, to count any members whose review has already been requested against the total number of members to assign, select **Count existing requests**.
 1. Optionally, to remove the review request from the team when assigning team members, select **Team review request**.

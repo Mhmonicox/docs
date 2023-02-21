@@ -1,5 +1,6 @@
 import cheerio from 'cheerio'
 import got from 'got'
+import { omitBy, isUndefined } from 'lodash-es'
 
 export async function get(
   route,
@@ -15,13 +16,17 @@ export async function get(
   const fn = got[method]
   if (!fn || typeof fn !== 'function') throw new Error(`No method function for '${method}'`)
   const absURL = `http://localhost:4000${route}`
-  const res = await fn(absURL, {
-    body: opts.body,
-    headers: opts.headers,
-    retry: { limit: 0 },
-    throwHttpErrors: false,
-    followRedirect: opts.followAllRedirects || opts.followRedirects,
-  })
+  const xopts = omitBy(
+    {
+      body: opts.body,
+      headers: opts.headers,
+      retry: { limit: 0 },
+      throwHttpErrors: false,
+      followRedirect: opts.followAllRedirects || opts.followRedirects,
+    },
+    isUndefined
+  )
+  const res = await fn(absURL, xopts)
   // follow all redirects, or just follow one
   if (opts.followAllRedirects && [301, 302].includes(res.status)) {
     // res = await get(res.headers.location, opts)
@@ -53,9 +58,23 @@ export function post(route, opts) {
   return get(route, Object.assign({}, opts, { method: 'post' }))
 }
 
+const getDOMCache = new Map()
+
+export async function getDOMCached(route, options) {
+  const cacheKey = `${route}:${options ? JSON.stringify(options) : ''}`
+  if (!getDOMCache.has(cacheKey)) {
+    getDOMCache.set(cacheKey, getDOM(route, options))
+  }
+  return getDOMCache.get(cacheKey)
+}
+
 export async function getDOM(
   route,
-  { headers, allow500s, allow404 } = { headers: undefined, allow500s: false, allow404: false }
+  { headers, allow500s, allow404 } = {
+    headers: undefined,
+    allow500s: false,
+    allow404: false,
+  }
 ) {
   const res = await get(route, { followRedirects: true, headers })
   if (!allow500s && res.status >= 500) {
@@ -71,8 +90,8 @@ export async function getDOM(
 
 // For use with the ?json query param
 // e.g. await getJSON('/en?json=breadcrumbs')
-export async function getJSON(route) {
-  const res = await get(route, { followRedirects: true })
+export async function getJSON(route, opts) {
+  const res = await get(route, { ...opts, followRedirects: true })
   if (res.status >= 500) {
     throw new Error(`Server error (${res.status}) on ${route}`)
   }

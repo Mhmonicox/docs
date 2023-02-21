@@ -26,7 +26,9 @@ Workflows that would otherwise be triggered using `on: push` or `on: pull_reques
 * `[skip actions]`
 * `[actions skip]`
 
-Alternatively, you can end the commit message with two empty lines followed by either `skip-checks: true` or `skip-checks:true`.
+Alternatively, you can end the commit message with two empty lines followed by either:
+- `skip-checks:true`
+- `skip-checks: true`
 
 You won't be able to merge the pull request if your repository is configured to require specific checks to pass first. To allow the pull request to be merged you can push a new commit to the pull request without the skip instruction in the commit message.
 
@@ -36,4 +38,4 @@ You won't be able to merge the pull request if your repository is configured to 
 
 {% endnote %}
 
-Skip instructions only apply to the workflow run(s) that would be triggered by the commit that contains the skip instructions. You can also disable a workflow from running. For more information, see "[Disabling and enabling a workflow](/actions/managing-workflow-runs/disabling-and-enabling-a-workflow)."
+Skip instructions only apply to the workflow run(s) that would be triggered by the commit that contains the skip instructions. You can also disable a workflow from running. For more information, see "[AUTOTITLE](/actions/managing-workflow-runs/disabling-and-enabling-a-workflow)."

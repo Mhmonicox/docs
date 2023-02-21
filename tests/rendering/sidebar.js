@@ -2,45 +2,47 @@ import fs from 'fs'
 import path from 'path'
 import { expect, jest } from '@jest/globals'
 
-import '../../lib/feature-flags.js'
-import readFileAsync from '../../lib/readfile-async.js'
 import getApplicableVersions from '../../lib/get-applicable-versions.js'
 import frontmatter from '../../lib/read-frontmatter.js'
 import { getDOM } from '../helpers/e2etest.js'
 import { allVersions } from '../../lib/all-versions.js'
+import renderContent from '../../lib/render-content/index.js'
+import shortVersionsMiddleware from '../../middleware/contextualizers/short-versions.js'
 
-jest.useFakeTimers('legacy')
-
+jest.useFakeTimers({ legacyFakeTimers: true })
+const req = {}
 describe('sidebar', () => {
   jest.setTimeout(3 * 60 * 1000)
-
   let $homePage, $githubPage, $enterprisePage, $restPage
   beforeAll(async () => {
+    req.context = {
+      allVersions,
+      currentLanguage: 'en',
+    }
     ;[$homePage, $githubPage, $enterprisePage, $restPage] = await Promise.all([
       getDOM('/en'),
-      getDOM('/en/github'),
+      getDOM('/en/get-started'),
       getDOM('/en/enterprise/admin'),
       getDOM('/en/rest'),
     ])
   })
 
-  test('highlights active product on Enterprise pages', async () => {
-    expect($enterprisePage('[data-testid=sidebar] [data-testid=sidebar-product]').length).toBe(1)
-    expect(
-      $enterprisePage('[data-testid=sidebar] [data-testid=sidebar-product] > a').text().trim()
-    ).toBe('Enterprise administrators')
+  test('highlights active product on Enterprise pages on xl viewport', async () => {
+    expect($enterprisePage('[data-testid=sidebar-product-xl]').length).toBe(1)
+    expect($enterprisePage('[data-testid=sidebar-product-xl]').text().trim()).toBe(
+      'Enterprise administrators'
+    )
   })
 
-  test('highlights active product on GitHub pages', async () => {
-    expect($githubPage('[data-testid=sidebar] [data-testid=sidebar-product]').length).toBe(1)
-    expect(
-      $githubPage('[data-testid=sidebar] [data-testid=sidebar-product] > a').text().trim()
-    ).toBe('GitHub')
+  test('highlights active product on GitHub pages on xl viewport', async () => {
+    expect($githubPage('[data-testid=sidebar-product-xl]').length).toBe(1)
+    expect($githubPage('[data-testid=sidebar-product-xl]').text().trim()).toBe('Get started')
   })
 
-  test('includes links to external products like the Atom, Electron, and CodeQL', async () => {
-    expect($homePage('[data-testid=sidebar] a[href="https://atom.io/docs"]')).toHaveLength(1)
-    expect($homePage('[data-testid=sidebar] a[href="https://electronjs.org/docs"]')).toHaveLength(1)
+  test('includes links to external products like Electron and CodeQL', async () => {
+    expect(
+      $homePage('[data-testid=sidebar] a[href="https://electronjs.org/docs/latest"]')
+    ).toHaveLength(1)
     expect(
       $homePage('[data-testid=sidebar] a[href="https://codeql.github.com/docs"]')
     ).toHaveLength(1)
@@ -114,6 +116,7 @@ describe('sidebar', () => {
           !directory.includes('rest/guides') &&
           !directory.includes('rest/overview') &&
           !absolute.includes('rest/index.md') &&
+          !absolute.includes('rest/quickstart.md') &&
           !file.includes('README.md')
         ) {
           return contentFiles.push(absolute)
@@ -123,8 +126,10 @@ describe('sidebar', () => {
 
     // Create a ContentCheck object that has all the categories/subcategories and get the title from frontmatter
     async function createContentCheckDirectory() {
+      const renderOpts = { textOnly: true }
+
       for (const filename of contentFiles) {
-        const { data } = frontmatter(await readFileAsync(filename, 'utf8'))
+        const { data } = frontmatter(await fs.promises.readFile(filename, 'utf8'))
         const applicableVersions = getApplicableVersions(data.versions, filename)
         const splitPath = filename.split('/')
         let category = ''
@@ -133,17 +138,45 @@ describe('sidebar', () => {
         if (splitPath[splitPath.length - 2] === 'rest') {
           category = data.title
         } else if (splitPath[splitPath.length - 3] === 'rest') {
-          if (filename.includes('index.md')) {
-            category = data.shortTitle || data.title
-          } else {
-            subCategory = data.shortTitle || data.title
-          }
+          filename.includes('index.md')
+            ? (category = data.shortTitle || data.title)
+            : (subCategory = data.shortTitle || data.title)
         }
         for (const version of applicableVersions) {
-          if (category !== '') contentCheck[version].cat.push(category)
-          if (subCategory !== '') contentCheck[version].subcat.push(subCategory)
+          req.context.currentVersion = version
+
+          if (category !== '')
+            if (category.includes('{')) {
+              await shortVersionsMiddleware(req, null, () => {})
+              contentCheck[version].cat.push(
+                await renderContent.liquid.parseAndRender(category, req.context, renderOpts)
+              )
+            } else {
+              contentCheck[version].cat.push(category)
+            }
+          if (subCategory !== '')
+            if (subCategory.includes('{')) {
+              await shortVersionsMiddleware(req, null, () => {})
+              contentCheck[version].subcat.push(
+                await renderContent.liquid.parseAndRender(subCategory, req.context, renderOpts)
+              )
+            } else {
+              contentCheck[version].subcat.push(subCategory)
+            }
         }
       }
     }
+  })
+  test("test a page where there's known sidebar short titles that use Liquid and ampersands", async () => {
+    const url =
+      '/en/issues/organizing-your-work-with-project-boards/tracking-work-with-project-boards'
+    const $ = await getDOM(url)
+    const linkTexts = []
+    $('[data-testid=sidebar]  a').each((i, element) => {
+      linkTexts.push($(element).text())
+    })
+    // This makes sure that none of the texts in there has their final HTML
+    // to be HTML entity encoded.
+    expect(linkTexts.filter((text) => text.includes('&amp;')).length).toBe(0)
   })
 })

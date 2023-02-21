@@ -30,7 +30,7 @@ While forks of private repositories are deleted when a collaborator is removed, 
 
 {% data reusables.repositories.navigate-to-repo %}
 {% data reusables.repositories.sidebar-settings %}
-{% ifversion fpt or ghec or ghes > 3.4 or ghae-issue-5658 %}
+{% ifversion fpt or ghec or ghes > 3.4 or ghae > 3.4 %}
 {% data reusables.repositories.click-collaborators-teams %}
 4. To the right of the collaborator you want to remove, click {% octicon "trash" aria-label="The trash icon" %}.
   ![Button to remove collaborator](/assets/images/help/repository/collaborator-remove.png)
@@ -43,5 +43,5 @@ While forks of private repositories are deleted when a collaborator is removed, 
 
 ## Further reading
 
-- "[Removing organization members from a team](/articles/removing-organization-members-from-a-team)"
-- "[Removing an outside collaborator from an organization repository](/articles/removing-an-outside-collaborator-from-an-organization-repository)"
+- "[AUTOTITLE](/organizations/organizing-members-into-teams/removing-organization-members-from-a-team)"
+- "[AUTOTITLE](/organizations/managing-user-access-to-your-organizations-repositories/removing-an-outside-collaborator-from-an-organization-repository)"

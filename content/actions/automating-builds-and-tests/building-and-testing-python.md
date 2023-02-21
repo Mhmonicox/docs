@@ -26,12 +26,12 @@ This guide shows you how to build, test, and publish a Python package.
 
 {% ifversion ghae %}
 {% data reusables.actions.self-hosted-runners-software %}
-{% else %} {% data variables.product.prodname_dotcom %}-hosted runners have a tools cache with pre-installed software, which includes Python and PyPy. You don't have to install anything! For a full list of up-to-date software and the pre-installed versions of Python and PyPy, see "[Specifications for {% data variables.product.prodname_dotcom %}-hosted runners](/actions/reference/specifications-for-github-hosted-runners/#supported-software)".
+{% else %} {% data variables.product.prodname_dotcom %}-hosted runners have a tools cache with pre-installed software, which includes Python and PyPy. You don't have to install anything! For a full list of up-to-date software and the pre-installed versions of Python and PyPy, see "[AUTOTITLE](/actions/using-github-hosted-runners/about-github-hosted-runners#supported-software)".
 {% endif %}
 
 ## Prerequisites
 
-You should be familiar with YAML and the syntax for {% data variables.product.prodname_actions %}. For more information, see "[Learn {% data variables.product.prodname_actions %}](/actions/learn-github-actions)."
+You should be familiar with YAML and the syntax for {% data variables.product.prodname_actions %}. For more information, see "[AUTOTITLE](/actions/learn-github-actions)."
 
 We recommend that you have a basic understanding of Python, PyPy, and pip. For more information, see:
 - [Getting started with Python](https://www.python.org/about/gettingstarted/)
@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.6", "3.7", "3.8", "3.9"]
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
 
     steps:
       - uses: {% data reusables.actions.action-checkout %}
@@ -112,9 +112,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       # You can use PyPy versions in python-version.
-      # For example, {% if actions-node16-action %}pypy-2.7 and pypy-3.8{% else %}pypy2 and pypy3{% endif %}
+      # For example, {% ifversion actions-node16-action %}pypy-2.7 and pypy-3.8{% else %}pypy2 and pypy3{% endif %}
       matrix:
-        python-version: ["2.7", "3.6", "3.7", "3.8", "3.9"]
+        python-version: ["2.7", "3.7", "3.8", "3.9", "3.10"]
 
     steps:
       - uses: {% data reusables.actions.action-checkout %}
@@ -129,7 +129,7 @@ jobs:
 
 ### Using a specific Python version
 
-You can configure a specific version of python. For example, 3.8. Alternatively, you can use semantic version syntax to get the latest minor release. This example uses the latest minor release of Python 3.
+You can configure a specific version of python. For example, 3.9. Alternatively, you can use semantic version syntax to get the latest minor release. This example uses the latest minor release of Python 3.
 
 ```yaml{:copy}
 name: Python package
@@ -159,7 +159,7 @@ jobs:
 
 If you specify a version of Python that is not available, `setup-python` fails with an error such as: `##[error]Version 3.4 with arch x64 not found`. The error message includes the available versions.
 
-You can also use the `exclude` keyword in your workflow if there is a configuration of Python that you do not wish to run. For more information, see "[Workflow syntax for {% data variables.product.prodname_actions %}](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idstrategy)."
+You can also use the `exclude` keyword in your workflow if there is a configuration of Python that you do not wish to run. For more information, see "[AUTOTITLE](/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstrategy)."
 
 ```yaml{:copy}
 name: Python package
@@ -173,12 +173,12 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ["3.6", "3.7", "3.8", "3.9", {% if actions-node16-action %}pypy-2.7, pypy-3.8{% else %}pypy2, pypy3{% endif %}]
+        python-version: ["3.7", "3.8", "3.9", "3.10", {% ifversion actions-node16-action %}pypy-2.7, pypy-3.8{% else %}pypy2, pypy3{% endif %}]
         exclude:
           - os: macos-latest
-            python-version: "3.6"
+            python-version: "3.7"
           - os: windows-latest
-            python-version: "3.6"
+            python-version: "3.7"
 ```
 
 ### Using the default Python version
@@ -195,7 +195,7 @@ We recommend using `setup-python` to configure the version of Python used in you
 
 {% data variables.product.prodname_dotcom %}-hosted runners have the pip package manager installed. You can use pip to install dependencies from the PyPI package registry before building and testing your code. For example, the YAML below installs or upgrades the `pip` package installer and the `setuptools` and `wheel` packages.
 
-{% if actions-caching %}You can also cache dependencies to speed up your workflow. For more information, see "[Caching dependencies to speed up workflows](/actions/using-workflows/caching-dependencies-to-speed-up-workflows)."{% endif %}
+{% ifversion actions-caching %}You can also cache dependencies to speed up your workflow. For more information, see "[AUTOTITLE](/actions/using-workflows/caching-dependencies-to-speed-up-workflows)."{% endif %}
 
 ```yaml{:copy}
 steps:
@@ -225,7 +225,7 @@ steps:
     pip install -r requirements.txt
 ```
 
-{% if actions-caching %}
+{% ifversion actions-caching %}
 
 ### Caching Dependencies
 
@@ -238,7 +238,7 @@ steps:
 - uses: {% data reusables.actions.action-checkout %}
 - uses: {% data reusables.actions.action-setup-python %}
   with:
-    python-version: '3.9'
+    python-version: '3.10'
     cache: 'pip'
 - run: pip install -r requirements.txt
 - run: pip test
@@ -315,7 +315,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: ["3.7", "3.8", "3.9"]
+        python: ["3.8", "3.9", "3.10"]
 
     steps:
       - uses: {% data reusables.actions.action-checkout %}
@@ -332,7 +332,7 @@ jobs:
 
 ## Packaging workflow data as artifacts
 
-You can upload artifacts to view after a workflow completes. For example, you may need to save log files, core dumps, test results, or screenshots. For more information, see "[Persisting workflow data using artifacts](/github/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts)."
+You can upload artifacts to view after a workflow completes. For example, you may need to save log files, core dumps, test results, or screenshots. For more information, see "[AUTOTITLE](/actions/using-workflows/storing-workflow-data-as-artifacts)."
 
 The following example demonstrates how you can use the `upload-artifact` action to archive test results from running `pytest`. For more information, see the [`upload-artifact` action](https://github.com/actions/upload-artifact).
 
@@ -347,7 +347,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.6", "3.7", "3.8", "3.9"]
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
 
     steps:
       - uses: {% data reusables.actions.action-checkout %}
@@ -373,12 +373,14 @@ jobs:
 
 ## Publishing to package registries
 
-You can configure your workflow to publish your Python package to a package registry once your CI tests pass. This section demonstrates how you can use {% data variables.product.prodname_actions %} to upload your package to PyPI each time you [publish a release](/github/administering-a-repository/managing-releases-in-a-repository). 
+You can configure your workflow to publish your Python package to a package registry once your CI tests pass. This section demonstrates how you can use {% data variables.product.prodname_actions %} to upload your package to PyPI each time you [publish a release](/repositories/releasing-projects-on-github/managing-releases-in-a-repository). 
 
-For this example, you will need to create two [PyPI API tokens](https://pypi.org/help/#apitoken). You can use secrets to store the access tokens or credentials needed to publish your package. For more information, see "[Creating and using encrypted secrets](/github/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets)."
+For this example, you will need to create two [PyPI API tokens](https://pypi.org/help/#apitoken). You can use secrets to store the access tokens or credentials needed to publish your package. For more information, see "[AUTOTITLE](/actions/security-guides/encrypted-secrets)."
 
 ```yaml{:copy}
 {% data reusables.actions.actions-not-certified-by-github-comment %}
+
+{% data reusables.actions.actions-use-sha-pinning-comment %}
 
 name: Upload Python Package
 

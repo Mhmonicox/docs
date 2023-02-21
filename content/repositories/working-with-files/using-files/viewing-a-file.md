@@ -50,14 +50,9 @@ In a file or pull request, you can also use the {% octicon "kebab-horizontal" ar
 4. To see earlier revisions of a specific line, or reblame, click {% octicon "versions" aria-label="The prior blame icon" %} until you've found the changes you're interested in viewing.
 ![Prior blame button](/assets/images/help/repository/prior-blame-button.png)
 
-{% if blame-ignore-revs %}
+{% ifversion blame-ignore-revs %}
 
 ## Ignore commits in the blame view
-{% note %}
-
-**Note:** Ignoring commits in the blame view is currently in public beta and subject to change.
-
-{% endnote %}
 
 All revisions specified in the `.git-blame-ignore-revs` file, which must be in the root directory of your repository, are hidden from the blame view using Git's `git blame --ignore-revs-file` configuration setting. For more information, see [`git blame --ignore-revs-file`](https://git-scm.com/docs/git-blame#Documentation/git-blame.txt---ignore-revs-fileltfilegt) in the Git documentation.
 
@@ -84,4 +79,14 @@ This can be useful when a few commits make extensive changes to your code. You c
 git blame --ignore-revs-file .git-blame-ignore-revs
 ```
 
+You can also configure your local git so it always ignores the revs in that file:
+
+```shell
+git config blame.ignoreRevsFile .git-blame-ignore-revs
+```
+
 {% endif %}
+
+## Bypassing `.git-blame-ignore-revs` in the blame view
+
+If the blame view for a file shows **Ignoring revisions in .git-blame-ignore-revs**, you can still bypass `.git-blame-ignore-revs` and see the normal blame view. In the URL, append a `~` to the SHA and the **Ignoring revisions in .git-blame-ignore-revs** will disappear.

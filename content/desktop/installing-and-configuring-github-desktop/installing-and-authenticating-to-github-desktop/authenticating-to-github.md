@@ -36,13 +36,13 @@ Before you authenticate, {% data reusables.desktop.get-an-account %}
 {% data reusables.desktop.mac-select-desktop-menu %}
 {% data reusables.desktop.mac-select-accounts %}
 {% data reusables.desktop.choose-product-authenticate %}
-4. To add an account on {% data variables.product.product_location_enterprise %}, type the URL for your instance under "Enterprise address," then click **Continue**.
+4. To add an account on {% data variables.location.product_location_enterprise %}, type the URL for your instance under "Enterprise address," then click **Continue**.
   ![The Sign In button for GitHub Enterprise](/assets/images/help/desktop/mac-sign-in-button-enterprise.png)
 {% data reusables.desktop.sign-in-browser %}
-1. To authenticate to {% data variables.product.product_location_enterprise %} account, type your account credentials and click **Sign in**.
+1. To authenticate to {% data variables.location.product_location_enterprise %} account, type your account credentials and click **Sign in**.
   ![The Sign In button for {% data variables.product.prodname_ghe_server %} in browser](/assets/images/help/desktop/enterprise-sign-in-button-browser.png)
 
-  Alternatively, if you were already signed in to {% data variables.product.product_location_enterprise %} account, follow the prompts to return to {% data variables.product.prodname_desktop %} to finish authenticating. 
+  Alternatively, if you were already signed in to {% data variables.location.product_location_enterprise %} account, follow the prompts to return to {% data variables.product.prodname_desktop %} to finish authenticating. 
 
 {% endmac %}
 
@@ -113,7 +113,7 @@ To troubleshoot, sign out of your account on {% data variables.product.prodname_
 ### Empty token
 
 ```shell
-info: [ui] [AppStore.withAuthenticatingUser] account found for repository: node - <username> (empty token)
+info: [ui] [AppStore.withAuthenticatingUser] account found for repository: node - USERNAME (empty token)
 ```
 
 This error means that {% data variables.product.prodname_desktop %} is unable to find the access token that it created in the system keychain.
@@ -143,7 +143,7 @@ Please make sure you have the correct access rights and the repository exists.
 
 This error means that you do not have a valid SSH key set up.
 
-To troubleshoot, see "[Generating a new SSH key and adding it to the SSH agent](/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)."
+To troubleshoot, see "[AUTOTITLE](/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)."
 
 ### Failed to clone
 
@@ -161,7 +161,7 @@ This error means that either the repository that you are trying to clone has sub
 
 If you do not have access to the submodules, troubleshoot by contacting the person who administers permissions for the repository.
 
-If you do not have a valid SSH key set up, see "[Generating a new SSH key and adding it to the SSH agent](/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)."
+If you do not have a valid SSH key set up, see "[AUTOTITLE](/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)."
 
 {% windows %}
 
@@ -187,4 +187,4 @@ If your Windows username has extended Unicode characters, it may cause an AskPas
 {% endwindows %}
 
 ## Further reading
-- "[About authentication to GitHub](/github/authenticating-to-github/about-authentication-to-github)"
+- "[AUTOTITLE](/authentication/keeping-your-account-and-data-secure/about-authentication-to-github)"

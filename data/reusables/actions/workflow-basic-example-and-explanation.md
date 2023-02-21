@@ -7,8 +7,11 @@ You can create an example workflow in your repository that automatically trigger
 1. In your repository, create the `.github/workflows/` directory to store your workflow files.
 1. In the `.github/workflows/` directory, create a new file called `learn-github-actions.yml` and add the following code.
 
-   ```yaml
+   ```yaml{:copy}
    name: learn-github-actions
+   {%- ifversion actions-run-name %}
+   run-name: {% raw %}${{ github.actor }}{% endraw %} is learning GitHub Actions
+   {%- endif %}
    on: [push]
    jobs:
      check-bats-version:
@@ -38,9 +41,23 @@ To help you understand how YAML syntax is used to create a workflow file, this s
   ```
 </td>
 <td>
-  <em>Optional</em> - The name of the workflow as it will appear in the Actions tab of the {% data variables.product.prodname_dotcom %} repository.
+  <em>Optional</em> - The name of the workflow as it will appear in the "Actions" tab of the {% data variables.product.prodname_dotcom %} repository.
 </td>
 </tr>
+{%- ifversion actions-run-name %}
+<tr>
+<td>
+
+  ```yaml
+  run-name: {% raw %}${{ github.actor }}{% endraw %} is learning GitHub Actions
+  ```
+</td>
+<td>
+
+  <em>Optional</em> - The name for workflow runs generated from the workflow, which will appear in the list of workflow runs on your repository's "Actions" tab. This example uses an expression with the `github` context to display the username of the actor that triggered the workflow run. For more information, see "[AUTOTITLE](/actions/using-workflows/workflow-syntax-for-github-actions#run-name)."
+</td>
+</tr>
+{%- endif %}
 <tr>
 <td>
 
@@ -146,7 +163,7 @@ The <code>uses</code> keyword specifies that this step will run <code>v3</code> 
 
 ### Visualizing the workflow file
 
-In this diagram, you can see the workflow file you just created and how the {% data variables.product.prodname_actions %} components are organized in a hierarchy. Each step executes a single action or shell script. Steps 1 and 2 run actions, while steps 3 and 4 run shell scripts. To find more prebuilt actions for your workflows, see "[Finding and customizing actions](/actions/learn-github-actions/finding-and-customizing-actions)."
+In this diagram, you can see the workflow file you just created and how the {% data variables.product.prodname_actions %} components are organized in a hierarchy. Each step executes a single action or shell script. Steps 1 and 2 run actions, while steps 3 and 4 run shell scripts. To find more prebuilt actions for your workflows, see "[AUTOTITLE](/actions/learn-github-actions/finding-and-customizing-actions)."
 
 ![Workflow overview](/assets/images/help/images/overview-actions-event.png)
 

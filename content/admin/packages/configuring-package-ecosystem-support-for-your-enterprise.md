@@ -25,7 +25,7 @@ To prevent new packages from being uploaded, you can set an ecosystem you previo
 1. Under "Ecosystem Toggles", for each package type, select **Enabled**, **Read-Only**, or **Disabled**.
    {%- ifversion ghes > 3.4 %}{% note -%}
    **Note**: Subdomain isolation must be enabled to toggle the {% data variables.product.prodname_container_registry %} options.
-   {%- endnote %}{%- endif %}{%- ifversion ghes > 3.1 %}
+   {%- endnote %}{%- endif %}{%- ifversion ghes %}
   ![Ecosystem toggles](/assets/images/enterprise/site-admin-settings/ecosystem-toggles.png){% else %}
   ![Ecosystem toggles](/assets/images/enterprise/3.1/site-admin-settings/ecosystem-toggles.png){% endif %}
 {% data reusables.enterprise_management_console.save-settings %}
@@ -51,4 +51,4 @@ If you wish to enable npm upstream sources, select `Enabled` for `npm upstreamin
 
 ## Next steps
 
-As a next step, we recommend you check if you need to update or upload a TLS certificate for your packages host URL. For more information, see "[Getting started with GitHub Packages for your enterprise](/admin/packages/getting-started-with-github-packages-for-your-enterprise)."
+As a next step, we recommend you check if you need to update or upload a TLS certificate for your packages host URL. For more information, see "[AUTOTITLE](/admin/packages/getting-started-with-github-packages-for-your-enterprise)."

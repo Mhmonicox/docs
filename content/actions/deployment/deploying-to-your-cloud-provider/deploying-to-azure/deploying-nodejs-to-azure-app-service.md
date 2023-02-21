@@ -25,11 +25,11 @@ topics:
 
 This guide explains how to use {% data variables.product.prodname_actions %} to build, test, and deploy a Node.js project to [Azure App Service](https://azure.microsoft.com/services/app-service/).
 
-{% ifversion fpt or ghec or ghae-issue-4856 or ghes > 3.4 %}
+{% ifversion fpt or ghec or ghes > 3.4 %}
 
 {% note %}
 
-**Note**: {% data reusables.actions.about-oidc-short-overview %} and "[Configuring OpenID Connect in Azure](/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-azure)."
+**Note**: {% data reusables.actions.about-oidc-short-overview %} and "[AUTOTITLE](/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-azure)."
 
 {% endnote %}
 
@@ -71,6 +71,8 @@ Ensure that you set `AZURE_WEBAPP_NAME` in the workflow `env` key to the name of
 
 ```yaml{:copy}
 {% data reusables.actions.actions-not-certified-by-github-comment %}
+
+{% data reusables.actions.actions-use-sha-pinning-comment %}
 
 on:
   push:

@@ -1,20 +1,14 @@
 ---
 title: Removing a member from your enterprise
-intro: 'You can remove a member from all organizations owned by your enterprise.'
+intro: You can remove a member from all organizations owned by your enterprise.
 permissions: Enterprise owners can remove an enterprise member from the enterprise.
 versions:
-  feature: 'remove-enterprise-members'
+  feature: remove-enterprise-members
 type: how_to
 topics:
   - Enterprise
 shortTitle: Remove member
 ---
-
-{% note %}
-
-**Note:** The ability to remove enterprise members is in beta and subject to change.
-
-{% endnote %}
 
 ## About removal of enterprise members
 
@@ -34,6 +28,6 @@ If your enterprise or any of the organizations owned by your enterprise uses an 
 
 {% data reusables.enterprise-accounts.access-enterprise %}
 {% data reusables.enterprise-accounts.people-tab %}
-1. To the right of the person you want to remove, select the {% octicon "gear" aria-label="The gear icon" %} dropdown menu and click **Remove from enterprise**.
+1. To the right of the person you want to remove, select the {% octicon "kebab-horizontal" aria-label="Member settings" %} dropdown menu and click **Remove from enterprise**.
 
-   ![Screenshot of the "Remove from enterprise" option for an enterprise member](/assets/images/help/business-accounts/remove-member.png)
+   ![Screenshot of a user in the list of enterprise members. A dropdown menu, labeled with a kebab icon, is highlighted with an orange outline.](/assets/images/help/business-accounts/remove-member.png)
