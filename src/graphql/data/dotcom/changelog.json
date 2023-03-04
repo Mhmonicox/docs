@@ -4,6 +4,76 @@
       {
         "title": "The GraphQL schema includes these changes:",
         "changes": [
+          "<p>Type <code>SocialAccount</code> was added</p>",
+          "<p>Type <code>SocialAccountConnection</code> was added</p>",
+          "<p>Type <code>SocialAccountEdge</code> was added</p>",
+          "<p>Type <code>SocialAccountProvider</code> was added</p>",
+          "<p>Field <code>socialAccounts</code> was added to object type <code>User</code></p>"
+        ]
+      }
+    ],
+    "previewChanges": [],
+    "upcomingChanges": [],
+    "date": "2023-03-03"
+  },
+  {
+    "schemaChanges": [
+      {
+        "title": "The GraphQL schema includes these changes:",
+        "changes": [
+          "<p>Field <code>requiredDeploymentEnvironments</code> was added to object type <code>BranchProtectionRule</code></p>",
+          "<p>Field <code>requiresDeployments</code> was added to object type <code>BranchProtectionRule</code></p>",
+          "<p>Input field <code>requiredDeploymentEnvironments</code> was added to input object type <code>CreateBranchProtectionRuleInput</code></p>",
+          "<p>Input field <code>requiresDeployments</code> was added to input object type <code>CreateBranchProtectionRuleInput</code></p>",
+          "<p>Input field <code>requiredDeploymentEnvironments</code> was added to input object type <code>UpdateBranchProtectionRuleInput</code></p>",
+          "<p>Input field <code>requiresDeployments</code> was added to input object type <code>UpdateBranchProtectionRuleInput</code></p>",
+          "<p>Field <code>event</code> was added to object type <code>WorkflowRun</code></p>"
+        ]
+      }
+    ],
+    "previewChanges": [],
+    "upcomingChanges": [],
+    "date": "2023-03-01"
+  },
+  {
+    "schemaChanges": [
+      {
+        "title": "The GraphQL schema includes these changes:",
+        "changes": [
+          "<p>Input field <code>expectedHeadOid</code> was added to input object type <code>EnablePullRequestAutoMergeInput</code></p>"
+        ]
+      }
+    ],
+    "previewChanges": [],
+    "upcomingChanges": [],
+    "date": "2023-02-24"
+  },
+  {
+    "schemaChanges": [
+      {
+        "title": "The GraphQL schema includes these changes:",
+        "changes": [
+          "<p>Type 'CreateProjectV2FieldInput' was added</p>",
+          "<p>Type 'CreateProjectV2FieldPayload' was added</p>",
+          "<p>Type 'DeleteProjectV2FieldInput' was added</p>",
+          "<p>Type 'DeleteProjectV2FieldPayload' was added</p>",
+          "<p>Type 'ProjectV2CustomFieldType' was added</p>",
+          "<p>Type 'ProjectV2SingleSelectFieldOptionColor' was added</p>",
+          "<p>Type 'ProjectV2SingleSelectFieldOptionInput' was added</p>",
+          "<p>Field 'createProjectV2Field<code>was added to object type</code>Mutation'</p>",
+          "<p>Field 'deleteProjectV2Field<code>was added to object type</code>Mutation'</p>"
+        ]
+      }
+    ],
+    "previewChanges": [],
+    "upcomingChanges": [],
+    "date": "2023-02-22"
+  },
+  {
+    "schemaChanges": [
+      {
+        "title": "The GraphQL schema includes these changes:",
+        "changes": [
           "<p>Enum value 'ROADMAP_LAYOUT<code>was added to enum</code>ProjectV2ViewLayout'</p>"
         ]
       }

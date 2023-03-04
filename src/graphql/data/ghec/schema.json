@@ -2871,6 +2871,40 @@
       ]
     },
     {
+      "name": "createProjectV2Field",
+      "kind": "mutations",
+      "id": "createprojectv2field",
+      "href": "/graphql/reference/mutations#createprojectv2field",
+      "description": "<p>Create a new project field.</p>",
+      "inputFields": [
+        {
+          "name": "input",
+          "type": "CreateProjectV2FieldInput!",
+          "id": "createprojectv2fieldinput",
+          "kind": "input-objects",
+          "href": "/graphql/reference/input-objects#createprojectv2fieldinput"
+        }
+      ],
+      "returnFields": [
+        {
+          "name": "clientMutationId",
+          "type": "String",
+          "id": "string",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#string",
+          "description": "<p>A unique identifier for the client performing the mutation.</p>"
+        },
+        {
+          "name": "projectV2Field",
+          "type": "ProjectV2FieldConfiguration",
+          "id": "projectv2fieldconfiguration",
+          "kind": "unions",
+          "href": "/graphql/reference/unions#projectv2fieldconfiguration",
+          "description": "<p>The new field.</p>"
+        }
+      ]
+    },
+    {
       "name": "createPullRequest",
       "kind": "mutations",
       "id": "createpullrequest",
@@ -3689,6 +3723,40 @@
           "kind": "objects",
           "href": "/graphql/reference/objects#projectv2",
           "description": "<p>The deleted Project.</p>"
+        }
+      ]
+    },
+    {
+      "name": "deleteProjectV2Field",
+      "kind": "mutations",
+      "id": "deleteprojectv2field",
+      "href": "/graphql/reference/mutations#deleteprojectv2field",
+      "description": "<p>Delete a project field.</p>",
+      "inputFields": [
+        {
+          "name": "input",
+          "type": "DeleteProjectV2FieldInput!",
+          "id": "deleteprojectv2fieldinput",
+          "kind": "input-objects",
+          "href": "/graphql/reference/input-objects#deleteprojectv2fieldinput"
+        }
+      ],
+      "returnFields": [
+        {
+          "name": "clientMutationId",
+          "type": "String",
+          "id": "string",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#string",
+          "description": "<p>A unique identifier for the client performing the mutation.</p>"
+        },
+        {
+          "name": "projectV2Field",
+          "type": "ProjectV2FieldConfiguration",
+          "id": "projectv2fieldconfiguration",
+          "kind": "unions",
+          "href": "/graphql/reference/unions#projectv2fieldconfiguration",
+          "description": "<p>The deleted field.</p>"
         }
       ]
     },
@@ -8124,7 +8192,7 @@
       "description": "<p>Creates, updates and/or deletes multiple refs in a repository.</p>\n<p>This mutation takes a list of <code>RefUpdate</code>s and performs these updates\non the repository. All updates are performed atomically, meaning that\nif one of them is rejected, no other ref will be modified.</p>\n<p><code>RefUpdate.beforeOid</code> specifies that the given reference needs to point\nto the given value before performing any updates. A value of\n<code>0000000000000000000000000000000000000000</code> can be used to verify that\nthe references should not exist.</p>\n<p><code>RefUpdate.afterOid</code> specifies the value that the given reference\nwill point to after performing all updates. A value of\n<code>0000000000000000000000000000000000000000</code> can be used to delete a\nreference.</p>\n<p>If <code>RefUpdate.force</code> is set to <code>true</code>, a non-fast-forward updates\nfor the given reference will be allowed.</p>",
       "isDeprecated": false,
       "preview": {
-        "title": "Update refs preview",
+        "title": "Update refs preview update multiple refs in a single operation preview",
         "description": "This preview adds support for updating multiple refs in a single operation.",
         "toggled_by": "update-refs-preview",
         "toggled_on": [
@@ -8136,7 +8204,7 @@
           "@github/reponauts"
         ],
         "accept_header": "application/vnd.github.update-refs-preview+json",
-        "href": "/graphql/overview/schema-previews#update-refs-preview"
+        "href": "/graphql/overview/schema-previews#update-refs-preview-update-multiple-refs-in-a-single-operation-preview"
       },
       "inputFields": [
         {
@@ -10134,6 +10202,14 @@
           "href": "/graphql/reference/scalars#int"
         },
         {
+          "name": "requiredDeploymentEnvironments",
+          "description": "<p>List of required deployment environments that must be deployed successfully to update matching branches.</p>",
+          "type": "[String]",
+          "id": "string",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#string"
+        },
+        {
           "name": "requiredStatusCheckContexts",
           "description": "<p>List of required status check contexts that must pass for commits to be accepted to matching branches.</p>",
           "type": "[String]",
@@ -10176,6 +10252,14 @@
         {
           "name": "requiresConversationResolution",
           "description": "<p>Are conversations required to be resolved before merging.</p>",
+          "type": "Boolean!",
+          "id": "boolean",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#boolean"
+        },
+        {
+          "name": "requiresDeployments",
+          "description": "<p>Does this branch require deployment to specific environments before merging.</p>",
           "type": "Boolean!",
           "id": "boolean",
           "kind": "scalars",
@@ -15910,7 +15994,7 @@
       "description": "<p>A dependency manifest entry.</p>",
       "isDeprecated": false,
       "preview": {
-        "title": "Access to a repository s dependency graph preview",
+        "title": "Access to a repository's dependency graph preview",
         "description": "This preview adds support for reading a dependency graph for a repository.",
         "toggled_by": "hawkgirl-preview",
         "toggled_on": [
@@ -15927,7 +16011,7 @@
           "@github/dependency-graph"
         ],
         "accept_header": "application/vnd.github.hawkgirl-preview+json",
-        "href": "/graphql/overview/schema-previews#access-to-a-repository-s-dependency-graph-preview"
+        "href": "/graphql/overview/schema-previews#access-to-a-repositorys-dependency-graph-preview"
       },
       "fields": [
         {
@@ -15990,7 +16074,7 @@
       "description": "<p>The connection type for DependencyGraphDependency.</p>",
       "isDeprecated": false,
       "preview": {
-        "title": "Access to a repository s dependency graph preview",
+        "title": "Access to a repository's dependency graph preview",
         "description": "This preview adds support for reading a dependency graph for a repository.",
         "toggled_by": "hawkgirl-preview",
         "toggled_on": [
@@ -16007,7 +16091,7 @@
           "@github/dependency-graph"
         ],
         "accept_header": "application/vnd.github.hawkgirl-preview+json",
-        "href": "/graphql/overview/schema-previews#access-to-a-repository-s-dependency-graph-preview"
+        "href": "/graphql/overview/schema-previews#access-to-a-repositorys-dependency-graph-preview"
       },
       "fields": [
         {
@@ -16052,7 +16136,7 @@
       "description": "<p>An edge in a connection.</p>",
       "isDeprecated": false,
       "preview": {
-        "title": "Access to a repository s dependency graph preview",
+        "title": "Access to a repository's dependency graph preview",
         "description": "This preview adds support for reading a dependency graph for a repository.",
         "toggled_by": "hawkgirl-preview",
         "toggled_on": [
@@ -16069,7 +16153,7 @@
           "@github/dependency-graph"
         ],
         "accept_header": "application/vnd.github.hawkgirl-preview+json",
-        "href": "/graphql/overview/schema-previews#access-to-a-repository-s-dependency-graph-preview"
+        "href": "/graphql/overview/schema-previews#access-to-a-repositorys-dependency-graph-preview"
       },
       "fields": [
         {
@@ -16098,7 +16182,7 @@
       "description": "<p>Dependency manifest for a repository.</p>",
       "isDeprecated": false,
       "preview": {
-        "title": "Access to a repository s dependency graph preview",
+        "title": "Access to a repository's dependency graph preview",
         "description": "This preview adds support for reading a dependency graph for a repository.",
         "toggled_by": "hawkgirl-preview",
         "toggled_on": [
@@ -16115,7 +16199,7 @@
           "@github/dependency-graph"
         ],
         "accept_header": "application/vnd.github.hawkgirl-preview+json",
-        "href": "/graphql/overview/schema-previews#access-to-a-repository-s-dependency-graph-preview"
+        "href": "/graphql/overview/schema-previews#access-to-a-repositorys-dependency-graph-preview"
       },
       "implements": [
         {
@@ -16233,7 +16317,7 @@
       "description": "<p>The connection type for DependencyGraphManifest.</p>",
       "isDeprecated": false,
       "preview": {
-        "title": "Access to a repository s dependency graph preview",
+        "title": "Access to a repository's dependency graph preview",
         "description": "This preview adds support for reading a dependency graph for a repository.",
         "toggled_by": "hawkgirl-preview",
         "toggled_on": [
@@ -16250,7 +16334,7 @@
           "@github/dependency-graph"
         ],
         "accept_header": "application/vnd.github.hawkgirl-preview+json",
-        "href": "/graphql/overview/schema-previews#access-to-a-repository-s-dependency-graph-preview"
+        "href": "/graphql/overview/schema-previews#access-to-a-repositorys-dependency-graph-preview"
       },
       "fields": [
         {
@@ -16295,7 +16379,7 @@
       "description": "<p>An edge in a connection.</p>",
       "isDeprecated": false,
       "preview": {
-        "title": "Access to a repository s dependency graph preview",
+        "title": "Access to a repository's dependency graph preview",
         "description": "This preview adds support for reading a dependency graph for a repository.",
         "toggled_by": "hawkgirl-preview",
         "toggled_on": [
@@ -16312,7 +16396,7 @@
           "@github/dependency-graph"
         ],
         "accept_header": "application/vnd.github.hawkgirl-preview+json",
-        "href": "/graphql/overview/schema-previews#access-to-a-repository-s-dependency-graph-preview"
+        "href": "/graphql/overview/schema-previews#access-to-a-repositorys-dependency-graph-preview"
       },
       "fields": [
         {
@@ -45054,7 +45138,7 @@
           "href": "/graphql/reference/scalars#boolean",
           "isDeprecated": false,
           "preview": {
-            "title": "Merge info preview",
+            "title": "Merge info preview more detailed information about a pull request's merge state preview",
             "description": "This preview adds support for accessing fields that provide more detailed information about a pull request's merge state.",
             "toggled_by": "merge-info-preview",
             "toggled_on": [
@@ -45065,7 +45149,7 @@
               "@github/pe-pull-requests"
             ],
             "accept_header": "application/vnd.github.merge-info-preview+json",
-            "href": "/graphql/overview/schema-previews#merge-info-preview"
+            "href": "/graphql/overview/schema-previews#merge-info-preview-more-detailed-information-about-a-pull-requests-merge-state-preview"
           }
         },
         {
@@ -45684,7 +45768,7 @@
           "href": "/graphql/reference/enums#mergestatestatus",
           "isDeprecated": false,
           "preview": {
-            "title": "Merge info preview",
+            "title": "Merge info preview more detailed information about a pull request's merge state preview",
             "description": "This preview adds support for accessing fields that provide more detailed information about a pull request's merge state.",
             "toggled_by": "merge-info-preview",
             "toggled_on": [
@@ -45695,7 +45779,7 @@
               "@github/pe-pull-requests"
             ],
             "accept_header": "application/vnd.github.merge-info-preview+json",
-            "href": "/graphql/overview/schema-previews#merge-info-preview"
+            "href": "/graphql/overview/schema-previews#merge-info-preview-more-detailed-information-about-a-pull-requests-merge-state-preview"
           }
         },
         {
@@ -55315,7 +55399,7 @@
           ],
           "isDeprecated": false,
           "preview": {
-            "title": "Access to a repository s dependency graph preview",
+            "title": "Access to a repository's dependency graph preview",
             "description": "This preview adds support for reading a dependency graph for a repository.",
             "toggled_by": "hawkgirl-preview",
             "toggled_on": [
@@ -55332,7 +55416,7 @@
               "@github/dependency-graph"
             ],
             "accept_header": "application/vnd.github.hawkgirl-preview+json",
-            "href": "/graphql/overview/schema-previews#access-to-a-repository-s-dependency-graph-preview"
+            "href": "/graphql/overview/schema-previews#access-to-a-repositorys-dependency-graph-preview"
           }
         },
         {
@@ -60654,6 +60738,105 @@
           "id": "boolean",
           "kind": "scalars",
           "href": "/graphql/reference/scalars#boolean"
+        }
+      ]
+    },
+    {
+      "name": "SocialAccount",
+      "kind": "objects",
+      "id": "socialaccount",
+      "href": "/graphql/reference/objects#socialaccount",
+      "description": "<p>Social media profile associated with a user.</p>",
+      "fields": [
+        {
+          "name": "displayName",
+          "description": "<p>Name of the social media account as it appears on the profile.</p>",
+          "type": "String!",
+          "id": "string",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#string"
+        },
+        {
+          "name": "provider",
+          "description": "<p>Software or company that hosts the social media account.</p>",
+          "type": "SocialAccountProvider!",
+          "id": "socialaccountprovider",
+          "kind": "enums",
+          "href": "/graphql/reference/enums#socialaccountprovider"
+        },
+        {
+          "name": "url",
+          "description": "<p>URL of the social media account.</p>",
+          "type": "URI!",
+          "id": "uri",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#uri"
+        }
+      ]
+    },
+    {
+      "name": "SocialAccountConnection",
+      "kind": "objects",
+      "id": "socialaccountconnection",
+      "href": "/graphql/reference/objects#socialaccountconnection",
+      "description": "<p>The connection type for SocialAccount.</p>",
+      "fields": [
+        {
+          "name": "edges",
+          "description": "<p>A list of edges.</p>",
+          "type": "[SocialAccountEdge]",
+          "id": "socialaccountedge",
+          "kind": "objects",
+          "href": "/graphql/reference/objects#socialaccountedge"
+        },
+        {
+          "name": "nodes",
+          "description": "<p>A list of nodes.</p>",
+          "type": "[SocialAccount]",
+          "id": "socialaccount",
+          "kind": "objects",
+          "href": "/graphql/reference/objects#socialaccount"
+        },
+        {
+          "name": "pageInfo",
+          "description": "<p>Information to aid in pagination.</p>",
+          "type": "PageInfo!",
+          "id": "pageinfo",
+          "kind": "objects",
+          "href": "/graphql/reference/objects#pageinfo"
+        },
+        {
+          "name": "totalCount",
+          "description": "<p>Identifies the total count of items in the connection.</p>",
+          "type": "Int!",
+          "id": "int",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#int"
+        }
+      ]
+    },
+    {
+      "name": "SocialAccountEdge",
+      "kind": "objects",
+      "id": "socialaccountedge",
+      "href": "/graphql/reference/objects#socialaccountedge",
+      "description": "<p>An edge in a connection.</p>",
+      "fields": [
+        {
+          "name": "cursor",
+          "description": "<p>A cursor for use in pagination.</p>",
+          "type": "String!",
+          "id": "string",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#string"
+        },
+        {
+          "name": "node",
+          "description": "<p>The item at the end of the edge.</p>",
+          "type": "SocialAccount",
+          "id": "socialaccount",
+          "kind": "objects",
+          "href": "/graphql/reference/objects#socialaccount"
         }
       ]
     },
@@ -69193,6 +69376,56 @@
           ]
         },
         {
+          "name": "socialAccounts",
+          "description": "<p>The user's social media accounts, ordered as they appear on the user's profile.</p>",
+          "type": "SocialAccountConnection!",
+          "id": "socialaccountconnection",
+          "kind": "objects",
+          "href": "/graphql/reference/objects#socialaccountconnection",
+          "arguments": [
+            {
+              "name": "after",
+              "description": "<p>Returns the elements in the list that come after the specified cursor.</p>",
+              "type": {
+                "name": "String",
+                "id": "string",
+                "kind": "scalars",
+                "href": "/graphql/reference/scalars#string"
+              }
+            },
+            {
+              "name": "before",
+              "description": "<p>Returns the elements in the list that come before the specified cursor.</p>",
+              "type": {
+                "name": "String",
+                "id": "string",
+                "kind": "scalars",
+                "href": "/graphql/reference/scalars#string"
+              }
+            },
+            {
+              "name": "first",
+              "description": "<p>Returns the first <em>n</em> elements from the list.</p>",
+              "type": {
+                "name": "Int",
+                "id": "int",
+                "kind": "scalars",
+                "href": "/graphql/reference/scalars#int"
+              }
+            },
+            {
+              "name": "last",
+              "description": "<p>Returns the last <em>n</em> elements from the list.</p>",
+              "type": {
+                "name": "Int",
+                "id": "int",
+                "kind": "scalars",
+                "href": "/graphql/reference/scalars#int"
+              }
+            }
+          ]
+        },
+        {
           "name": "sponsoring",
           "description": "<p>List of users and organizations this entity is sponsoring.</p>",
           "type": "SponsorConnection!",
@@ -70950,6 +71183,14 @@
               }
             }
           ]
+        },
+        {
+          "name": "event",
+          "description": "<p>The event that triggered the workflow run.</p>",
+          "type": "String!",
+          "id": "string",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#string"
         },
         {
           "name": "pendingDeploymentRequests",
@@ -77220,6 +77461,31 @@
       ]
     },
     {
+      "name": "ProjectV2CustomFieldType",
+      "kind": "enums",
+      "id": "projectv2customfieldtype",
+      "href": "/graphql/reference/enums#projectv2customfieldtype",
+      "description": "<p>The type of a project field.</p>",
+      "values": [
+        {
+          "name": "DATE",
+          "description": "<p>Date.</p>"
+        },
+        {
+          "name": "NUMBER",
+          "description": "<p>Number.</p>"
+        },
+        {
+          "name": "SINGLE_SELECT",
+          "description": "<p>Single Select.</p>"
+        },
+        {
+          "name": "TEXT",
+          "description": "<p>Text.</p>"
+        }
+      ]
+    },
+    {
       "name": "ProjectV2FieldOrderField",
       "kind": "enums",
       "id": "projectv2fieldorderfield",
@@ -77378,6 +77644,47 @@
         {
           "name": "UPDATED_AT",
           "description": "<p>The project's date and time of update.</p>"
+        }
+      ]
+    },
+    {
+      "name": "ProjectV2SingleSelectFieldOptionColor",
+      "kind": "enums",
+      "id": "projectv2singleselectfieldoptioncolor",
+      "href": "/graphql/reference/enums#projectv2singleselectfieldoptioncolor",
+      "description": "<p>The display color of a single-select field option.</p>",
+      "values": [
+        {
+          "name": "BLUE",
+          "description": "<p>BLUE.</p>"
+        },
+        {
+          "name": "GRAY",
+          "description": "<p>GRAY.</p>"
+        },
+        {
+          "name": "GREEN",
+          "description": "<p>GREEN.</p>"
+        },
+        {
+          "name": "ORANGE",
+          "description": "<p>ORANGE.</p>"
+        },
+        {
+          "name": "PINK",
+          "description": "<p>PINK.</p>"
+        },
+        {
+          "name": "PURPLE",
+          "description": "<p>PURPLE.</p>"
+        },
+        {
+          "name": "RED",
+          "description": "<p>RED.</p>"
+        },
+        {
+          "name": "YELLOW",
+          "description": "<p>YELLOW.</p>"
         }
       ]
     },
@@ -78750,6 +79057,55 @@
         {
           "name": "UPDATED_AT",
           "description": "<p>Order vulnerability by update time.</p>"
+        }
+      ]
+    },
+    {
+      "name": "SocialAccountProvider",
+      "kind": "enums",
+      "id": "socialaccountprovider",
+      "href": "/graphql/reference/enums#socialaccountprovider",
+      "description": "<p>Software or company that hosts social media accounts.</p>",
+      "values": [
+        {
+          "name": "FACEBOOK",
+          "description": "<p>Social media and networking website.</p>"
+        },
+        {
+          "name": "GENERIC",
+          "description": "<p>Catch-all for social media providers that do not yet have specific handling.</p>"
+        },
+        {
+          "name": "HOMETOWN",
+          "description": "<p>Fork of Mastodon with a greater focus on local posting.</p>"
+        },
+        {
+          "name": "INSTAGRAM",
+          "description": "<p>Social media website with a focus on photo and video sharing.</p>"
+        },
+        {
+          "name": "LINKEDIN",
+          "description": "<p>Professional networking website.</p>"
+        },
+        {
+          "name": "MASTODON",
+          "description": "<p>Open-source federated microblogging service.</p>"
+        },
+        {
+          "name": "REDDIT",
+          "description": "<p>Social news aggregation and discussion website.</p>"
+        },
+        {
+          "name": "TWITCH",
+          "description": "<p>Live-streaming service.</p>"
+        },
+        {
+          "name": "TWITTER",
+          "description": "<p>Microblogging website.</p>"
+        },
+        {
+          "name": "YOUTUBE",
+          "description": "<p>Online video platform.</p>"
         }
       ]
     },
@@ -84310,6 +84666,14 @@
           "href": "/graphql/reference/scalars#int"
         },
         {
+          "name": "requiredDeploymentEnvironments",
+          "description": "<p>The list of required deployment environments.</p>",
+          "type": "[String!]",
+          "id": "string",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#string"
+        },
+        {
           "name": "requiredStatusCheckContexts",
           "description": "<p>List of required status check contexts that must pass for commits to be accepted to matching branches.</p>",
           "type": "[String!]",
@@ -84352,6 +84716,14 @@
         {
           "name": "requiresConversationResolution",
           "description": "<p>Are conversations required to be resolved before merging.</p>",
+          "type": "Boolean",
+          "id": "boolean",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#boolean"
+        },
+        {
+          "name": "requiresDeployments",
+          "description": "<p>Are successful deployments required before merging.</p>",
           "type": "Boolean",
           "id": "boolean",
           "kind": "scalars",
@@ -85303,6 +85675,56 @@
           "id": "projecttemplate",
           "kind": "enums",
           "href": "/graphql/reference/enums#projecttemplate"
+        }
+      ]
+    },
+    {
+      "name": "CreateProjectV2FieldInput",
+      "kind": "inputObjects",
+      "id": "createprojectv2fieldinput",
+      "href": "/graphql/reference/input-objects#createprojectv2fieldinput",
+      "description": "<p>Autogenerated input type of CreateProjectV2Field.</p>",
+      "inputFields": [
+        {
+          "name": "clientMutationId",
+          "description": "<p>A unique identifier for the client performing the mutation.</p>",
+          "type": "String",
+          "id": "string",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#string"
+        },
+        {
+          "name": "dataType",
+          "description": "<p>The data type of the field.</p>",
+          "type": "ProjectV2CustomFieldType!",
+          "id": "projectv2customfieldtype",
+          "kind": "enums",
+          "href": "/graphql/reference/enums#projectv2customfieldtype"
+        },
+        {
+          "name": "name",
+          "description": "<p>The name of the field.</p>",
+          "type": "String!",
+          "id": "string",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#string"
+        },
+        {
+          "name": "projectId",
+          "description": "<p>The ID of the Project to create the field in.</p>",
+          "type": "ID!",
+          "id": "id",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#id",
+          "isDeprecated": false
+        },
+        {
+          "name": "singleSelectOptions",
+          "description": "<p>Options for a single select field. At least one value is required if data_type is SINGLE_SELECT.</p>",
+          "type": "[ProjectV2SingleSelectFieldOptionInput!]",
+          "id": "projectv2singleselectfieldoptioninput",
+          "kind": "input-objects",
+          "href": "/graphql/reference/input-objects#projectv2singleselectfieldoptioninput"
         }
       ]
     },
@@ -86345,6 +86767,32 @@
       ]
     },
     {
+      "name": "DeleteProjectV2FieldInput",
+      "kind": "inputObjects",
+      "id": "deleteprojectv2fieldinput",
+      "href": "/graphql/reference/input-objects#deleteprojectv2fieldinput",
+      "description": "<p>Autogenerated input type of DeleteProjectV2Field.</p>",
+      "inputFields": [
+        {
+          "name": "clientMutationId",
+          "description": "<p>A unique identifier for the client performing the mutation.</p>",
+          "type": "String",
+          "id": "string",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#string"
+        },
+        {
+          "name": "fieldId",
+          "description": "<p>The ID of the field to delete.</p>",
+          "type": "ID!",
+          "id": "id",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#id",
+          "isDeprecated": false
+        }
+      ]
+    },
+    {
       "name": "DeleteProjectV2Input",
       "kind": "inputObjects",
       "id": "deleteprojectv2input",
@@ -86858,6 +87306,14 @@
           "id": "string",
           "kind": "scalars",
           "href": "/graphql/reference/scalars#string"
+        },
+        {
+          "name": "expectedHeadOid",
+          "description": "<p>The expected head OID of the pull request.</p>",
+          "type": "GitObjectID",
+          "id": "gitobjectid",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#gitobjectid"
         },
         {
           "name": "mergeMethod",
@@ -88474,6 +88930,39 @@
       ]
     },
     {
+      "name": "ProjectV2SingleSelectFieldOptionInput",
+      "kind": "inputObjects",
+      "id": "projectv2singleselectfieldoptioninput",
+      "href": "/graphql/reference/input-objects#projectv2singleselectfieldoptioninput",
+      "description": "<p>Represents a single select field option.</p>",
+      "inputFields": [
+        {
+          "name": "color",
+          "description": "<p>The display color of the option.</p>",
+          "type": "ProjectV2SingleSelectFieldOptionColor!",
+          "id": "projectv2singleselectfieldoptioncolor",
+          "kind": "enums",
+          "href": "/graphql/reference/enums#projectv2singleselectfieldoptioncolor"
+        },
+        {
+          "name": "description",
+          "description": "<p>The description text of the option.</p>",
+          "type": "String!",
+          "id": "string",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#string"
+        },
+        {
+          "name": "name",
+          "description": "<p>The name of the option.</p>",
+          "type": "String!",
+          "id": "string",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#string"
+        }
+      ]
+    },
+    {
       "name": "ProjectV2ViewOrder",
       "kind": "inputObjects",
       "id": "projectv2vieworder",
@@ -88632,7 +89121,7 @@
       "description": "<p>A ref update.</p>",
       "isDeprecated": false,
       "preview": {
-        "title": "Update refs preview",
+        "title": "Update refs preview update multiple refs in a single operation preview",
         "description": "This preview adds support for updating multiple refs in a single operation.",
         "toggled_by": "update-refs-preview",
         "toggled_on": [
@@ -88644,7 +89133,7 @@
           "@github/reponauts"
         ],
         "accept_header": "application/vnd.github.update-refs-preview+json",
-        "href": "/graphql/overview/schema-previews#update-refs-preview"
+        "href": "/graphql/overview/schema-previews#update-refs-preview-update-multiple-refs-in-a-single-operation-preview"
       },
       "inputFields": [
         {
@@ -91004,6 +91493,14 @@
           "href": "/graphql/reference/scalars#int"
         },
         {
+          "name": "requiredDeploymentEnvironments",
+          "description": "<p>The list of required deployment environments.</p>",
+          "type": "[String!]",
+          "id": "string",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#string"
+        },
+        {
           "name": "requiredStatusCheckContexts",
           "description": "<p>List of required status check contexts that must pass for commits to be accepted to matching branches.</p>",
           "type": "[String!]",
@@ -91046,6 +91543,14 @@
         {
           "name": "requiresConversationResolution",
           "description": "<p>Are conversations required to be resolved before merging.</p>",
+          "type": "Boolean",
+          "id": "boolean",
+          "kind": "scalars",
+          "href": "/graphql/reference/scalars#boolean"
+        },
+        {
+          "name": "requiresDeployments",
+          "description": "<p>Are successful deployments required before merging.</p>",
           "type": "Boolean",
           "id": "boolean",
           "kind": "scalars",
@@ -93033,7 +93538,7 @@
       "description": "<p>Autogenerated input type of UpdateRefs.</p>",
       "isDeprecated": false,
       "preview": {
-        "title": "Update refs preview",
+        "title": "Update refs preview update multiple refs in a single operation preview",
         "description": "This preview adds support for updating multiple refs in a single operation.",
         "toggled_by": "update-refs-preview",
         "toggled_on": [
@@ -93045,7 +93550,7 @@
           "@github/reponauts"
         ],
         "accept_header": "application/vnd.github.update-refs-preview+json",
-        "href": "/graphql/overview/schema-previews#update-refs-preview"
+        "href": "/graphql/overview/schema-previews#update-refs-preview-update-multiple-refs-in-a-single-operation-preview"
       },
       "inputFields": [
         {
@@ -93714,7 +94219,7 @@
       "description": "<p>A fully qualified reference name (e.g. <code>refs/heads/master</code>).</p>",
       "isDeprecated": false,
       "preview": {
-        "title": "Update refs preview",
+        "title": "Update refs preview update multiple refs in a single operation preview",
         "description": "This preview adds support for updating multiple refs in a single operation.",
         "toggled_by": "update-refs-preview",
         "toggled_on": [
@@ -93726,7 +94231,7 @@
           "@github/reponauts"
         ],
         "accept_header": "application/vnd.github.update-refs-preview+json",
-        "href": "/graphql/overview/schema-previews#update-refs-preview"
+        "href": "/graphql/overview/schema-previews#update-refs-preview-update-multiple-refs-in-a-single-operation-preview"
       }
     },
     {

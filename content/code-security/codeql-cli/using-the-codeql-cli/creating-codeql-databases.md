@@ -12,6 +12,8 @@ topics:
   - Code scanning
   - CodeQL
 ---
+<!--The CodeQL CLI man pages include a link to a section in this article. If you rename this article,
+make sure that you also update the MS short link: https://aka.ms/codeql-docs/indirect-tracing.-->
 
 {% data reusables.codeql-cli.codeql-site-migration-note %}
 
@@ -238,6 +240,10 @@ The following examples are designed to give you an idea of some of the build com
    ```
 
 This command runs a custom script that contains all of the commands required to build the project.
+
+<!-- Anchor to maintain the CodeQL CLI manual pages link: https://aka.ms/codeql-docs/indirect-tracing -->
+
+<a name="using-indirect-build-tracing"></a>
 
 ### Using indirect build tracing
 
